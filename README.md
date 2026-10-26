@@ -30,7 +30,7 @@ Want to see it first? `python -m lessonreview build --example` builds the notebo
 ## Setup
 
 ```bash
-git clone https://github.com/<you>/english-lesson-review.git
+git clone https://github.com/Ledu55/english-lesson-review.git
 cd english-lesson-review
 pip install -r requirements.txt
 cp config.example.json config.json   # then edit it
