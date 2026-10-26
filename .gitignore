@@ -1,0 +1,14 @@
+# Personal data: never commit
+/raw/
+/analysis/
+/output/
+/manifest.json
+/config.json
+/.browser-profile/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+*.tmp

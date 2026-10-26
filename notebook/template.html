@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Practice Notebook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: exercise-book app. Rail of tabs on desktop, bottom tab bar on phones; content column with index-card surfaces. */
+:root{
+  --paper:#EEF1F4; --sheet:#FBFCFD; --sheet-2:#F3F6F9; --rule:#D5DCE4; --rule-soft:#E4E9EF;
+  --ink:#16243A; --ink-2:#4A5A70; --ink-3:#7A889B;
+  --blue:#2346B8; --blue-soft:#E3E9FA;
+  --pen:#D2452B; --pen-soft:#FBE7E2;
+  --ok:#1F7A55; --ok-soft:#DDF1E7; --warn:#9A6400;
+  --hi:#FFE873; --margin:#F0A9A0;
+  --f-display:'Literata',Georgia,serif; --f-body:'Figtree',system-ui,sans-serif; --f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0E1420; --sheet:#151D2B; --sheet-2:#1B2535; --rule:#2A3648; --rule-soft:#222D3D;
+  --ink:#E6ECF5; --ink-2:#A6B3C5; --ink-3:#77869B;
+  --blue:#8EA8FF; --blue-soft:#1E2A4D; --pen:#FF7A62; --pen-soft:#3A1F1C;
+  --ok:#5CCB98; --ok-soft:#173327; --warn:#E3B04B; --hi:#5A4C10; --margin:#6B3A36; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0E1420; --sheet:#151D2B; --sheet-2:#1B2535; --rule:#2A3648; --rule-soft:#222D3D;
+  --ink:#E6ECF5; --ink-2:#A6B3C5; --ink-3:#77869B;
+  --blue:#8EA8FF; --blue-soft:#1E2A4D; --pen:#FF7A62; --pen-soft:#3A1F1C;
+  --ok:#5CCB98; --ok-soft:#173327; --warn:#E3B04B; --hi:#5A4C10; --margin:#6B3A36; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font:15px/1.5 var(--f-body)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.app{display:flex;height:100%}
+.rail{flex:none;width:236px;background:var(--sheet);border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:24px;padding:24px 14px}
+.brand{padding:0 10px}
+.brand b{display:block;font:600 22px/1.1 var(--f-display);letter-spacing:-.01em}
+.brand span{font-size:12px;color:var(--ink-3)}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{border:0;background:none;text-align:left;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:14px}
+.nav button:hover{background:var(--sheet-2)}
+.nav button[aria-current="page"]{background:var(--blue-soft);color:var(--blue);font-weight:600}
+.nav .n{margin-left:auto;font:12px var(--f-mono);color:var(--ink-3)}
+.nav .due{margin-left:auto;font:600 11px var(--f-mono);background:var(--pen);color:var(--sheet);border-radius:999px;padding:1px 7px}
+.ico{width:16px;height:16px;flex:none}
+.railfoot{margin-top:auto;display:flex;flex-direction:column;gap:8px;padding:0 10px}
+.lbl{font:500 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:flex;gap:2px;padding:2px;border:1px solid var(--rule);border-radius:8px;background:var(--sheet)}
+.seg button{flex:1;border:0;background:none;border-radius:6px;padding:5px 9px;font-size:12.5px;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+main{flex:1;min-width:0;overflow-y:auto}
+.col{max-width:900px;margin:0 auto;padding-block:32px 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:24px}
+h1{margin:0;font:500 34px/1.1 var(--f-display);letter-spacing:-.02em;text-wrap:balance}
+h2{margin:0;font:500 22px/1.2 var(--f-display);text-wrap:balance}
+h3{margin:0;font:600 15px var(--f-body)}
+.sub{margin:4px 0 0;color:var(--ink-2)}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.mut{color:var(--ink-2)} .s{font-size:13px} .xs{font-size:12px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chip{flex:none;border:1px solid var(--rule);background:var(--sheet);border-radius:999px;padding:6px 12px;font-size:13px;min-height:34px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--sheet)}
+.chip i{font-style:normal;opacity:.6;margin-left:4px;font-family:var(--f-mono);font-size:11.5px}
+.btn{border:0;border-radius:9px;padding:11px 18px;min-height:44px;font-weight:600;background:var(--ink);color:var(--sheet)}
+.btn.ghost{background:none;border:1px solid var(--rule);color:var(--ink);font-weight:500}
+.btn.link{background:none;color:var(--ink-2);text-decoration:underline;padding-inline:4px;font-weight:500}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.between{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.strike{color:var(--pen);text-decoration:line-through;text-decoration-thickness:1.5px;text-wrap:pretty}
+.corr{font:400 19px/1.35 var(--f-display);text-wrap:pretty}
+.kbd{font:500 11px var(--f-mono);border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--ink-2)}
+
+/* Today hero */
+.today{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;background:var(--blue);color:#fff;border-radius:14px;padding:24px}
+:root[data-theme="dark"] .today{color:#0E1420}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .today{color:#0E1420}}
+.today .k{font:500 11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.today .t{font:500 30px/1.15 var(--f-display);letter-spacing:-.01em;margin:6px 0 4px;text-wrap:balance}
+.today .btn{background:var(--sheet);color:var(--ink)}
+.today .btn.ghost{background:none;border-color:currentColor;color:inherit}
+.boxes{display:flex;gap:6px;align-items:flex-end}
+.box{display:flex;flex-direction:column;align-items:center;gap:4px;font:11px var(--f-mono)}
+.box span{width:30px;border-radius:4px 4px 0 0;background:currentColor;opacity:.9}
+.box:nth-child(1) span{opacity:.35}.box:nth-child(2) span{opacity:.5}.box:nth-child(3) span{opacity:.65}.box:nth-child(4) span{opacity:.8}
+
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.figs div{background:var(--sheet);padding:16px 18px}
+.figs b{display:block;font:500 36px/1 var(--f-display);letter-spacing:-.02em}
+.figs span{font-size:13px;color:var(--ink-2)}
+.mastery{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px 20px}
+.mrow{border:0;background:none;text-align:left;padding:8px 6px;border-radius:8px;display:flex;flex-direction:column;gap:6px}
+.mrow:hover{background:var(--sheet-2)}
+.bar{height:6px;border-radius:3px;background:var(--rule-soft);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.chart{display:flex;align-items:flex-end;gap:8px;height:160px;border-bottom:1px solid var(--rule);padding-top:18px}
+.chart div{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.chart span{width:100%;max-width:26px;border-radius:4px 4px 0 0}
+.chartx{display:flex;gap:8px}
+.chartx span{flex:1;min-width:0;text-align:center;font:10.5px var(--f-mono);color:var(--ink-3);white-space:nowrap;overflow:hidden}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl th{text-align:left;font:500 11px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding:10px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule-soft)}
+.tbl td.num,.tbl th.num{text-align:right;font-family:var(--f-mono)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* errors */
+.search{width:100%;border:1px solid var(--rule);background:var(--sheet);border-radius:10px;padding:11px 14px;font:inherit;color:var(--ink)}
+.elist{display:flex;flex-direction:column;gap:10px}
+.err{display:grid;grid-template-columns:4px minmax(0,1fr);gap:0 16px;padding:14px 18px 14px 0;overflow:hidden}
+.err::before{content:"";grid-row:1 / span 4;background:var(--cat,var(--rule))}
+.meta{display:flex;gap:6px;flex-wrap:wrap;font:500 11px var(--f-body);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.meta .low{color:var(--warn)}
+.meta .st{margin-left:auto;font-family:var(--f-mono);letter-spacing:0;text-transform:none}
+.err .expl{font-size:13px;color:var(--ink-2);text-wrap:pretty;margin-top:2px}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-2)}
+
+/* flashcard */
+.flash{position:relative;width:100%;min-height:300px;border:1px solid var(--rule);border-radius:14px;padding:30px 28px 30px 68px;text-align:left;display:flex;flex-direction:column;justify-content:center;gap:12px;
+  background:repeating-linear-gradient(180deg,var(--sheet) 0 31px,var(--rule-soft) 31px 32px);
+  box-shadow:0 1px 0 var(--rule),0 6px 0 -3px var(--sheet),0 7px 0 -3px var(--rule),0 12px 0 -6px var(--sheet),0 13px 0 -6px var(--rule)}
+.flash::before{content:"";position:absolute;left:46px;top:0;bottom:0;width:1.5px;background:var(--margin)}
+.flash .big{font:400 28px/1.28 var(--f-display);text-wrap:pretty}
+.flash .big.red{color:var(--pen)}
+@media (prefers-reduced-motion:no-preference){.flash.in{animation:deal .22s ease-out}@keyframes deal{from{transform:translateY(6px) rotate(-.4deg);opacity:.4}to{transform:none;opacity:1}}}
+.rate{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rate .btn{min-height:50px}
+.btn.miss{background:var(--sheet);color:var(--pen);border:1.5px solid var(--pen)}
+.btn.ok{background:var(--ok);color:var(--sheet)}
+.prog{height:4px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--blue);transition:width .2s}
+
+/* cloze */
+.gap{font:400 25px/1.65 var(--f-display);text-wrap:pretty}
+.gap input,.gap .blank{font:inherit;color:var(--ink);border:0;border-bottom:2px solid var(--ink);background:var(--hi);padding:0 6px;margin:0 2px;outline:none;border-radius:3px 3px 0 0}
+.gap .blank{display:inline-block;min-width:4ch}
+.gap .blank.bad{color:var(--pen)} .gap .blank.good{color:var(--ok)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.opts button{border:1px solid var(--rule);background:var(--sheet);border-radius:9px;padding:10px 14px;min-height:50px;font:400 19px var(--f-display);display:flex;gap:10px;align-items:center}
+.opts button:hover{border-color:var(--ink)}
+.res{border-top:1px solid var(--rule);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+
+/* vocab */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.vcard{background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+
+/* diag */
+.pat{width:100%;border:0;border-bottom:1px solid var(--rule-soft);background:none;text-align:left;padding:14px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:baseline}
+.pat:hover{background:var(--sheet-2)} .pat:last-child{border-bottom:0}
+.pat b{font:500 24px/1 var(--f-display)}
+.strengths{list-style:none;margin:0;padding:0}
+.strengths li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid var(--rule);text-wrap:pretty}
+.strengths li::before{content:"✓";color:var(--ok);font-weight:700}
+
+/* plan */
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px}
+.task{border:0;background:none;text-align:left;display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:8px 0;font-size:14px;align-items:start;width:100%}
+.task .cb{width:18px;height:18px;margin-top:2px;border-radius:4px;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--sheet)}
+.task.on .cb{background:var(--ok);border-color:var(--ok)} .task.on .tx{color:var(--ink-3);text-decoration:line-through}
+.week.cur{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+
+.tabbar{display:none}
+@media (max-width:767px){
+  .rail{display:none}
+  .col{padding-block:20px 110px;gap:20px}
+  h1{font-size:28px}
+  .today{grid-template-columns:1fr}
+  .boxes{display:none}
+  .flash{padding:24px 20px 24px 52px;min-height:260px} .flash::before{left:34px} .flash .big{font-size:23px}
+  .gap{font-size:21px}
+  .weeks{grid-template-columns:1fr}
+  .mtop{display:flex!important}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--sheet);border-top:1px solid var(--rule);
+    padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));overflow-x:auto;scrollbar-width:none;gap:2px}
+  .tabbar button{flex:1 0 auto;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;padding:6px 8px;border-radius:8px;color:var(--ink-2);min-width:58px;position:relative}
+  .tabbar button[aria-current="page"]{color:var(--blue);background:var(--blue-soft);font-weight:600}
+  .tabbar .dot{position:absolute;top:3px;right:12px;width:7px;height:7px;border-radius:50%;background:var(--pen)}
+}
+.mtop{display:none;justify-content:space-between;align-items:center;gap:10px}
+.mtop b{font:600 20px var(--f-display)}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand"><b>Practice Notebook</b><span id="range"></span></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div class="lbl">Platform</div>
+      <div class="seg" id="plat"></div>
+    </div>
+  </aside>
+  <main id="main"><div class="col" id="view"></div></main>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const CAT = DATA.categories;
+const catName=c=>(CAT[c]||[c])[0], catHint=c=>(CAT[c]||['',''])[1], catColor=c=>(CAT[c]||[0,0,'#7A889B'])[2];
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const lbl=l=>MON[+l.slice(5,7)-1]+' '+(+l.slice(8));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const RE=/[A-Za-zÀ-ÿ]+(?:['’][A-Za-z]+)*|\d+(?::\d+)?/g;
+const toks=s=>s.match(RE)||[]; const norm=w=>w.toLowerCase().replace(/’/g,"'");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+
+function makeCloze(e){
+  const corr=e.correction.split(' / ')[0].replace(/\.\.\./g,'').trim();
+  const ot={}; toks(e.original).forEach(w=>ot[norm(w)]=1);
+  const ct=toks(corr), cand=[]; ct.forEach((w,i)=>{if(!ot[norm(w)])cand.push(i)});
+  if(!cand.length) return null;
+  cand.sort((a,b)=>ct[b].length-ct[a].length||a-b);
+  const idx=cand[0], re=new RegExp(RE.source,'g'); let m,k=0;
+  while((m=re.exec(corr))){if(k===idx)return{e,pre:corr.slice(0,m.index),post:corr.slice(m.index+m[0].length),ans:ct[idx]};k++}
+  return null;
+}
+const CLOZES=(()=>{const cz=DATA.errors.filter(e=>e.confidence!=='low').map(makeCloze).filter(Boolean);
+  cz.forEach(c=>{const same=cz.filter(o=>o.e.category===c.e.category).map(o=>o.ans),all=cz.map(o=>o.ans),seen={[norm(c.ans)]:1},opts=[c.ans];
+    shuffle(same).concat(shuffle(all)).forEach(a=>{if(opts.length<4&&!seen[norm(a)]){seen[norm(a)]=1;opts.push(a)}});c.options=shuffle(opts)});return cz})();
+
+const DIAG = DATA.diagnosis, PLAN = DATA.plan, XL = DATA.meta.explanation_lang || "en";
+
+/* Leitner spaced repetition: box 0 = new, 1..5; interval in days per box */
+const IV=[0,1,2,4,8,16], DAY=864e5, today=()=>Math.floor(Date.now()/DAY);
+const KEY='notebook.v2';
+let P={srs:{},plan:{},score:0,tried:0,plat:'all',cMode:'type',days:[],newPer:10,newLog:{},autoSay:true,slow:false};
+try{const v=JSON.parse(localStorage.getItem(KEY)||'null'); if(v)P=Object.assign(P,v);}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}};
+const box=id=>(P.srs[id]||{}).b||0;
+const isDue=id=>{const s=P.srs[id];return !s||s.due<=today()};
+function rateCard(id,good){const b=good?Math.min(5,box(id)+1):1;P.srs[id]={b,due:today()+(good?IV[b]:0),last:today()};
+  if(!P.days.includes(today())){P.days.push(today());P.days=P.days.slice(-60)} save();}
+function streak(){let n=0,d=today();const s=new Set(P.days);if(!s.has(d))d--;while(s.has(d)){n++;d--}return n}
+
+/* Voice: browser speech synthesis reads the corrected sentence once it is revealed */
+const TTS='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+const SPK='M11 5L6 9H3v6h3l5 4zM15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13';
+function say(t){if(!TTS)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=P.slow?0.7:0.95;
+  const vs=speechSynthesis.getVoices(),v=vs.find(v=>/^en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
+const sayRow=(t,k)=>TTS?`<div class="row" data-autosay="${esc(k)}" data-text="${esc(t)}"><button class="btn ghost" data-say="${esc(t)}">${ico(SPK)} Listen</button><button class="btn link" data-slow="1">${P.slow?'Normal speed':'Slower'}</button><button class="btn link" data-auto="1">Auto-read: ${P.autoSay?'on':'off'}</button></div>`:'';
+const S={screen:'dashboard',eCat:'',eLes:'',q:'',fTopic:'',fMode:'due',deck:null,fI:0,flip:false,cTopic:'',cDeck:null,cI:0,cVal:'',cRes:'',cHint:false,rq:null,rI:0,rFlip:false,rVal:'',rRes:'',rHint:false,rMiss:{}};
+const VIEWS=[['dashboard','Today','M3 12l9-8 9 8M5 10v10h14V10'],['review','Daily review','M4 12l5 5L20 6'],['diagnosis','Diagnosis','M4 19V9m6 10V5m6 14v-7m4 7H2'],['errors','Errors','M4 6h16M4 12h16M4 18h10'],
+ ['flashcards','Flashcards','M6 4h12v16H6zM9 8h6'],['cloze','Fill the gap','M4 15h16M7 11h3m4 0h3'],['vocab','Vocabulary','M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3zM5 17a3 3 0 013-3h11'],['plan','Weekly plan','M5 5h14v15H5zM5 9h14M9 3v4m6-4v4']];
+const ico=d=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+
+const errs=()=>DATA.errors.filter(e=>P.plat==='all'||e.source===P.plat);
+const pool=()=>errs().filter(e=>e.confidence!=='low');
+function counts(list){const c={};list.forEach(e=>c[e.category]=(c[e.category]||0)+1);return Object.keys(c).sort((a,b)=>c[b]-c[a]).map(k=>({k,n:c[k]}))}
+function lessons(){const E=errs();return DATA.stats.filter(s=>P.plat==='all'||s.source===P.plat).slice().sort((a,b)=>a.lesson<b.lesson?-1:1)
+  .map(s=>Object.assign({},s,{n:E.filter(e=>e.lesson===s.lesson&&e.source===s.source).length}))}
+const curWeek=()=>{const i=PLAN.findIndex((w,wi)=>w.tasks.some((t,ti)=>!P.plan[wi+'_'+ti]));return i<0?Math.max(0,PLAN.length-1):i};
+
+function go(screen,extra){Object.assign(S,{screen},extra||{});if(extra&&('fTopic' in extra||'fMode' in extra))S.deck=null;if(extra&&'cTopic' in extra)S.cDeck=null;render();document.getElementById('main').scrollTop=0}
+function chrome(){
+  const dueN=rLeft();
+  const counts={errors:errs().length,vocab:DATA.vocabulary.length};
+  document.getElementById('nav').innerHTML=VIEWS.map(v=>`<button data-go="${v[0]}" ${S.screen===v[0]?'aria-current="page"':''}>${ico(v[2])}<span>${v[1]}</span>${v[0]==='review'&&dueN?`<span class="due" title="Left in today's review">${dueN}</span>`:counts[v[0]]?`<span class="n">${counts[v[0]]}</span>`:''}</button>`).join('');
+  document.getElementById('tabbar').innerHTML=VIEWS.map(v=>`<button data-go="${v[0]}" ${S.screen===v[0]?'aria-current="page"':''}>${ico(v[2])}<span>${v[1].replace('Weekly ','').replace('Daily ','')}</span>${v[0]==='review'&&dueN?'<i class="dot"></i>':''}</button>`).join('');
+  document.getElementById('plat').innerHTML=platSeg();
+  const ds=DATA.stats.map(s=>s.lesson).sort();document.getElementById('range').textContent=lbl(ds[0])+' – '+lbl(ds[ds.length-1])+', '+ds[0].slice(0,4);
+}
+const platSeg=()=>[['all','All'],['cambly','Cambly'],['preply','Preply']].map(p=>`<button data-plat="${p[0]}" aria-pressed="${P.plat===p[0]}">${p[1]}</button>`).join('');
+const mtop=t=>`<div class="mtop"><b>${t}</b><div class="seg">${platSeg()}</div></div>`;
+
+const V={};
+V.dashboard=()=>{
+  const E=errs(),pl=pool(),L=lessons(),cats=counts(E);
+  const due=rQ().slice(S.rI),fresh=due.filter(id=>!P.srs[id]).length;
+  const mastered=pl.filter(e=>box(e.id)>=3).length;
+  const byBox=[0,1,2,3,4,5].map(b=>pl.filter(e=>box(e.id)===b).length),mxb=Math.max(1,...byBox);
+  const fc=counts(pl).map(c=>{const it=pl.filter(e=>e.category===c.k);return{k:c.k,total:it.length,m:it.filter(e=>box(e.id)>=3).length,l:it.filter(e=>box(e.id)>0&&box(e.id)<3).length}});
+  const weak=fc.slice().sort((a,b)=>(b.total-b.m)-(a.total-a.m))[0]||{k:'other'};
+  const wk=curWeek(),w=PLAN[wk]||{title:'Plan',focus:'Run the review first',tasks:[]},wd=w.tasks.filter((t,ti)=>P.plan[wk+'_'+ti]).length,st=streak();
+  const mx=Math.max(1,...L.map(l=>l.n));
+  return `${mtop('Practice Notebook')}
+  <div><h1>Today</h1><p class="sub">${E.length} corrections from ${L.length} lessons · ${st?`${st}-day streak`:'Start a streak today'}</p></div>
+  <section class="today">
+    <div><div class="k">${w.title} · ${esc(w.focus)}</div>
+      <div class="t">${due.length?`${due.length} card${due.length>1?'s':''} due`:'You\'re caught up'}</div>
+      <div style="opacity:.85">${due.length?`${fresh} new, ${due.length-fresh} to review. Weakest type: ${esc(catName(weak.k).toLowerCase())}.`:'Come back tomorrow, or drill your weakest type: '+esc(catName(weak.k).toLowerCase())+'.'}</div>
+      <div class="row" style="margin-top:16px">
+        ${due.length?`<button class="btn" data-go="review">Start daily review</button>`:`<button class="btn" data-go="flashcards" data-x='{"fTopic":"","fMode":"all","fI":0,"flip":false}'>Drill all cards</button>`}
+        <button class="btn ghost" data-go="cloze" data-x='{"cTopic":"${weak.k}","cI":0,"cVal":"","cRes":""}'>Fill the gap · ${esc(catName(weak.k))}</button>
+        <button class="btn link" style="color:inherit" data-go="plan">Plan: ${wd} of ${w.tasks.length}</button>
+      </div></div>
+    <div class="boxes" aria-label="Cards per review box">${byBox.slice(1).map((n,i)=>`<div class="box"><span style="height:${8+Math.round(n/mxb*70)}px"></span>${n}<small style="opacity:.7">B${i+1}</small></div>`).join('')}</div>
+  </section>
+  <div class="figs">
+    <div><b>${E.length}</b><span>Corrections logged</span></div>
+    <div><b>${pct(mastered,pl.length)}%</b><span>Cards mastered (box 3+)</span></div>
+    <div><b>${cats[0]?cats[0].n:0}</b><span>Top: ${esc(cats[0]?catName(cats[0].k):'—')}</span></div>
+    <div><b>${P.tried?pct(P.score,P.tried)+'%':'—'}</b><span>Gap accuracy${P.tried?` (${P.tried})`:''}</span></div>
+  </div>
+  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+    <div class="between"><h2>Mastery by error type</h2><span class="legend"><span><i style="background:var(--ok)"></i>Mastered</span><span><i style="background:var(--blue)"></i>Learning</span></span></div>
+    <div class="mastery">${fc.map(c=>`<button class="mrow" data-go="flashcards" data-x='{"fTopic":"${c.k}","fMode":"all","fI":0,"flip":false}'>
+      <span class="between" style="width:100%"><span style="font-weight:500">${esc(catName(c.k))}</span><span class="mono xs mut">${c.m}/${c.total}</span></span>
+      <span class="bar" style="width:100%"><i style="width:${pct(c.m,c.total)}%;background:var(--ok)"></i><i style="width:${pct(c.l,c.total)}%;background:var(--blue)"></i></span></button>`).join('')}</div>
+  </section>
+  <section class="card" style="display:flex;flex-direction:column;gap:10px">
+    <div class="between"><h2>Corrections per lesson</h2><span class="legend"><span><i style="background:var(--ink)"></i>Cambly</span><span><i style="background:var(--ink-3)"></i>Preply</span></span></div>
+    <div class="chart">${L.map(l=>`<div><span class="mono xs mut">${l.n}</span><span style="height:${Math.round(l.n/mx*100)}%;background:${l.source==='cambly'?'var(--ink)':'var(--ink-3)'}"></span></div>`).join('')}</div>
+    <div class="chartx">${L.map(l=>`<span>${lbl(l.lesson)}</span>`).join('')}</div>
+  </section>
+  <section class="card" style="padding:6px 8px"><div class="tbl"><table>
+    <thead><tr><th>Lesson</th><th>Tutor</th><th class="num">Talk</th><th class="num">WPM</th><th class="num">Unique</th><th class="num">Errors</th></tr></thead>
+    <tbody>${L.map(l=>`<tr><td><button class="btn link" style="padding:0;min-height:0;color:var(--blue)" data-go="errors" data-x='{"eLes":"${l.lesson}","eCat":""}'>${lbl(l.lesson)}</button></td><td>${esc(l.tutor)} <span class="mut">· ${l.source==='cambly'?'Cambly':'Preply'}</span></td>
+      <td class="num">${l.talk==null?'—':l.talk+'%'}</td><td class="num">${l.wpm??'—'}</td><td class="num">${l.unique??'—'}</td><td class="num">${l.n}</td></tr>`).join('')}</tbody></table></div>
+    <p class="xs mut" style="margin:8px 12px">— = not available. Preply gives partial data.</p></section>`;
+};
+V.diagnosis=()=>{
+  const all=DATA.errors,cs=counts(errs()),mx=cs[0]?cs[0].n:1;
+  const cam=DATA.stats.filter(s=>s.talk!=null).sort((a,b)=>a.lesson<b.lesson?-1:1).map(s=>Object.assign({},s,{n:all.filter(e=>e.source===s.source&&e.lesson===s.lesson).length}));
+  const cmx=Math.max(1,...cam.map(c=>c.n)),low=errs().filter(e=>e.confidence==='low').length;
+  return `${mtop('Diagnosis')}<div><h1>Diagnosis</h1><p class="sub">${errs().length} corrections · ${low} low-confidence</p></div>
+  <section><h2>Strengths</h2><ul class="strengths" style="margin-top:10px">${DIAG.strengths.length?DIAG.strengths.map(t=>`<li>${esc(t)}</li>`).join(''):'<li>No strengths recorded yet. The API and MCP reviews add them.</li>'}</ul></section>
+  <section style="display:flex;flex-direction:column;gap:10px"><h2>Recurring patterns</h2><div class="card" style="padding:0;overflow:hidden">${cs.map(c=>{
+    const ca=errs().filter(e=>e.category===c.k&&e.source==='cambly').length;
+    return `<button class="pat" data-go="errors" data-x='{"eCat":"${c.k}","eLes":""}'><span style="font-weight:600"><i style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${catColor(c.k)};margin-right:8px"></i>${esc(catName(c.k))}</span><b>${c.n}</b>
+    <span class="s mut">${esc(DIAG.notes[c.k]||'')}</span><span class="xs mut mono">C ${ca} · P ${c.n-ca}</span>
+    <span class="bar" style="grid-column:1/-1;height:4px"><i style="width:${pct(c.n,mx)}%;background:${catColor(c.k)}"></i></span></button>`}).join('')}</div></section>
+  <section style="display:flex;flex-direction:column;gap:10px"><h2>How it changed</h2>
+    <div class="card" style="padding:4px 18px">${cam.map(v=>`<div style="display:grid;grid-template-columns:56px minmax(0,1fr) 40px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule-soft);font-size:13px">
+      <span style="font-weight:600">${lbl(v.lesson)}</span><span style="display:flex;flex-direction:column;gap:5px;min-width:0"><span class="mut">${esc(v.tutor||v.source)} · ${v.talk}% talk · ${esc(DIAG.evo[v.lesson]||'')}</span><span class="bar" style="height:4px"><i style="width:${pct(v.n,cmx)}%;background:var(--ink)"></i></span></span>
+      <span style="font:500 19px var(--f-display);text-align:right">${v.n}</span></div>`).join('')}</div>
+    <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px">${DIAG.findings.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px" class="s">
+    ${DIAG.preply?`<div class="card"><h3>About Preply data</h3><p class="mut" style="margin:4px 0 0">${esc(DIAG.preply)}</p></div>`:''}
+    <div class="card"><h3>Confidence</h3><p class="mut" style="margin:4px 0 0">${esc(DIAG.confidence)}</p></div></div>`;
+};
+V.errors=()=>{
+  const E=errs(),q=S.q.trim().toLowerCase();
+  const list=E.filter(e=>(!S.eCat||e.category===S.eCat)&&(!S.eLes||e.lesson===S.eLes)&&(!q||(e.original+' '+e.correction+' '+e.explanation).toLowerCase().includes(q)));
+  const les=[...new Set(E.map(e=>e.lesson))].sort();
+  const stTag=e=>{const b=box(e.id);return e.confidence==='low'?'':b>=3?'mastered':b>0?'box '+b:'new'};
+  return `${mtop('Errors')}<div class="between"><h1>Errors</h1><span class="mut s">${list.length} shown</span></div>
+  <input class="search" id="q" type="search" placeholder="Search a word: on, fewer, section…" value="${esc(S.q)}" aria-label="Search errors">
+  <div class="chips"><button class="chip" data-set='{"eCat":""}' aria-pressed="${!S.eCat}">All<i>${E.length}</i></button>${counts(E).map(c=>`<button class="chip" data-set='{"eCat":"${c.k}"}' aria-pressed="${S.eCat===c.k}">${esc(catName(c.k))}<i>${c.n}</i></button>`).join('')}</div>
+  <div class="chips scroll"><button class="chip" data-set='{"eLes":""}' aria-pressed="${!S.eLes}">All lessons</button>${les.map(l=>`<button class="chip" data-set='{"eLes":"${l}"}' aria-pressed="${S.eLes===l}">${lbl(l)}</button>`).join('')}</div>
+  <div class="elist">${list.length?list.map(e=>`<article class="card err" style="--cat:${catColor(e.category)}"><div class="meta"><span>${esc(catName(e.category))}</span><span>·</span><span>${lbl(e.lesson)}</span><span>·</span><span>${e.source==='cambly'?'Cambly':'Preply'}</span>${e.confidence==='low'?'<span class="low">· low confidence</span>':''}<span class="st">${stTag(e)}</span></div>
+    <div class="strike">${esc(e.original)}</div><div class="corr">${esc(e.correction)}</div><div class="expl" lang="${XL}">${esc(e.explanation)}</div></article>`).join(''):'<div class="card empty">No corrections match. Clear the search or pick another chip.</div>'}</div>`;
+};
+function fDeck(){if(!S.deck){const pl=pool().filter(e=>!S.fTopic||e.category===S.fTopic);
+  S.deck=shuffle(S.fMode==='due'?pl.filter(e=>isDue(e.id)):S.fMode==='new'?pl.filter(e=>!P.srs[e.id]):pl).map(e=>e.id)}return S.deck}
+V.flashcards=()=>{
+  const pl=pool(),d=fDeck(),id=d[S.fI],e=id&&DATA.errors.find(x=>x.id===id);
+  const modes=[['due','Due'],['new','New'],['all','All']];
+  const tops=counts(pl);
+  return `${mtop('Flashcards')}<div class="between"><h1>Flashcards</h1><div class="seg">${modes.map(m=>`<button data-set='{"fMode":"${m[0]}","fI":0,"flip":false,"deck":null}' aria-pressed="${S.fMode===m[0]}">${m[1]}</button>`).join('')}</div></div>
+  <div class="chips scroll"><button class="chip" data-set='{"fTopic":"","fI":0,"flip":false,"deck":null}' aria-pressed="${!S.fTopic}">All topics</button>${tops.map(c=>`<button class="chip" data-set='{"fTopic":"${c.k}","fI":0,"flip":false,"deck":null}' aria-pressed="${S.fTopic===c.k}">${esc(catName(c.k))}<i>${c.n}</i></button>`).join('')}</div>
+  <div style="display:flex;flex-direction:column;gap:6px"><div class="between s mut"><span>${e?`Card ${S.fI+1} of ${d.length}`:`${d.length} cards`}</span><span class="xs"><span class="kbd">Space</span> flip · <span class="kbd">1</span> missed · <span class="kbd">2</span> got it</span></div>
+  <div class="prog"><i style="width:${pct(S.fI,d.length||1)}%"></i></div></div>
+  ${e?`<button class="flash in" id="card" aria-label="Flip card">
+    <span class="meta"><span>${S.flip?'Correction':'You said'}</span><span>·</span><span style="color:${catColor(e.category)}">${esc(catName(e.category))}</span><span class="st">${box(e.id)?'box '+box(e.id):'new'}</span></span>
+    ${S.flip?`<span class="strike s">${esc(e.original)}</span><span class="big">${esc(e.correction)}</span><span class="s mut" lang="${XL}">${esc(e.explanation)}</span>`
+      :`<span class="big red">${esc(e.original)}</span><span class="s mut">How would you say it? Tap to check.</span>`}</button>
+  <div class="rate">${S.flip?`<button class="btn miss" data-rate="0">Missed it</button><button class="btn ok" data-rate="1">Got it</button>`:`<button class="btn" style="grid-column:1/-1;min-height:50px" id="flipb">Flip card</button>`}</div>${S.flip?sayRow(e.correction,'f'+e.id):''}`
+  :`<div class="card empty"><h2>${d.length?'Deck done. Nice work.':S.fMode==='due'?'Nothing due right now.':'No cards in this deck.'}</h2><p>${S.fMode==='due'?'Reviewed cards come back on day 1, 2, 4, 8 and 16.':''}</p><div class="row" style="justify-content:center"><button class="btn ghost" data-set='{"fMode":"all","fI":0,"flip":false,"deck":null}'>Drill all cards</button></div></div>`}`;
+};
+function cDeck(){if(!S.cDeck)S.cDeck=shuffle(CLOZES.filter(c=>(P.plat==='all'||c.e.source===P.plat)&&(!S.cTopic||c.e.category===S.cTopic)));return S.cDeck}
+V.cloze=()=>{
+  const d=cDeck(),c=d[S.cI],typ=P.cMode==='type';
+  const tops=counts(CLOZES.filter(x=>P.plat==='all'||x.e.source===P.plat).map(x=>x.e));
+  return `${mtop('Fill the gap')}<div class="between"><h1>Fill the gap</h1><div class="row"><span class="mut s mono">${P.score} / ${P.tried} correct</span><div class="seg">${[['type','Type'],['choose','Choose']].map(m=>`<button data-cmode="${m[0]}" aria-pressed="${P.cMode===m[0]}">${m[1]}</button>`).join('')}</div></div></div>
+  <div class="chips scroll"><button class="chip" data-set='{"cTopic":"","cI":0,"cVal":"","cRes":"","cDeck":null}' aria-pressed="${!S.cTopic}">All topics</button>${tops.map(t=>`<button class="chip" data-set='{"cTopic":"${t.k}","cI":0,"cVal":"","cRes":"","cDeck":null}' aria-pressed="${S.cTopic===t.k}">${esc(catName(t.k))}<i>${t.n}</i></button>`).join('')}</div>
+  ${c?`<section class="card" style="padding:24px;display:flex;flex-direction:column;gap:18px">
+    <div class="between xs mut"><span class="mono">${S.cI+1} / ${d.length}</span><span>${lbl(c.e.lesson)} · ${c.e.source==='cambly'?'Cambly':'Preply'}</span></div>
+    <div><div class="lbl">You said</div><div class="strike" style="text-decoration:none">${esc(c.e.original)}</div></div>
+    <div style="border-left:3px solid ${catColor(c.e.category)};padding-left:12px"><div class="s" style="font-weight:600">${esc(catName(c.e.category))}</div><div class="s mut">${esc(catHint(c.e.category))}</div></div>
+    <div class="gap">${esc(c.pre)}${typ&&!S.cRes?`<input id="cin" value="${esc(S.cVal)}" placeholder="…" aria-label="Missing word" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:${Math.max(4,c.ans.length+1)}ch">`
+      :`<span class="blank ${S.cRes==='ok'?'good':S.cRes==='bad'?'bad':''}">${S.cRes?esc(S.cVal):'&nbsp;'}</span>`}${esc(c.post)}</div>
+    ${!S.cRes&&!typ?`<div class="opts">${c.options.map((o,i)=>`<button data-opt="${esc(o)}"><span class="kbd">${i+1}</span>${esc(o)}</button>`).join('')}</div>`:''}
+    ${S.cHint&&!S.cRes?`<div class="s mut">Hint: ${c.ans.length} letters, starts with “${esc(c.ans[0])}”</div>`:''}
+    ${!S.cRes&&typ?`<div class="row"><button class="btn" id="ccheck">Check</button><button class="btn ghost" id="chint">Hint</button><button class="btn link" id="cshow">Show answer</button></div>`:''}
+    ${S.cRes?`<div class="res"><div style="font-weight:600;color:${S.cRes==='ok'?'var(--ok)':'var(--pen)'}">${S.cRes==='ok'?'Correct.':S.cRes==='bad'?`Not quite. The word is “${esc(c.ans)}”.`:`Answer: “${esc(c.ans)}”`}</div>
+      <div class="corr">${esc(c.e.correction)}</div><div class="s mut" lang="${XL}">${esc(c.e.explanation)}</div>${sayRow(c.e.correction,'c'+c.e.id+'.'+S.cI)}
+      <div><button class="btn" id="cnext">Next →</button> <span class="xs mut">or press <span class="kbd">Enter</span></span></div></div>`:''}
+  </section>`:`<div class="card empty"><h2>${d.length?'All done.':'No items here.'}</h2><div class="row" style="justify-content:center;margin-top:10px"><button class="btn ghost" data-set='{"cI":0,"cVal":"","cRes":"","cDeck":null}'>Shuffle and restart</button></div></div>`}`;
+};
+/* Daily review: cards due today + a capped number of new ones (most frequent error types first).
+   New or missed cards show as flashcards; cards already in a box show as fill-the-gap when one exists. */
+const CZ={};CLOZES.forEach(c=>CZ[c.e.id]=c);
+const newToday=()=>(P.newLog||{})[today()]||0;
+function rBuild(){const pl=pool(),cnt={};pl.forEach(e=>cnt[e.category]=(cnt[e.category]||0)+1);
+  const due=pl.filter(e=>P.srs[e.id]&&P.srs[e.id].due<=today());
+  const fresh=pl.filter(e=>!P.srs[e.id]).sort((a,b)=>cnt[b.category]-cnt[a.category]||(a.lesson<b.lesson?-1:1)).slice(0,Math.max(0,P.newPer-newToday()));
+  return shuffle(due).concat(fresh).map(e=>e.id)}
+const rQ=()=>S.rq||(S.rq=rBuild());
+const rLeft=()=>Math.max(0,rQ().length-S.rI);
+const dayLbl=d=>lbl(new Date(d*DAY).toISOString().slice(0,10));
+function rGrade(good){const id=rQ()[S.rI];if(!id)return;
+  if(!P.srs[id]){P.newLog=P.newLog||{};P.newLog[today()]=newToday()+1}
+  rateCard(id,good);if(!good){S.rq.push(id);S.rMiss[id]=1}
+  Object.assign(S,{rI:S.rI+1,rFlip:false,rVal:'',rRes:'',rHint:false});render()}
+function rCheck(){const c=CZ[rQ()[S.rI]];if(!c||S.rRes||!S.rVal.trim())return;S.rRes=norm(S.rVal.trim())===norm(c.ans)?'ok':'bad';render()}
+V.review=()=>{
+  const q=rQ(),id=q[S.rI],e=id&&DATA.errors.find(x=>x.id===id),c=e&&!S.rMiss[id]&&box(id)>=1&&CZ[id],st=streak();
+  const nx=Object.values(P.srs).map(s=>s.due).filter(d=>d>today()).sort((a,b)=>a-b)[0];
+  const head=`${mtop('Daily review')}<div class="between"><div><h1>Daily review</h1><p class="sub">${rLeft()} left today · ${newToday()} of ${P.newPer} new cards · ${st?`${st}-day streak`:'Start a streak today'}</p></div>
+  <div class="row"><span class="lbl">New per day</span><div class="seg">${[5,10,15,20].map(n=>`<button data-newper="${n}" aria-pressed="${P.newPer===n}">${n}</button>`).join('')}</div></div></div>
+  <div class="prog"><i style="width:${pct(S.rI,q.length||1)}%"></i></div>`;
+  if(!e)return head+`<div class="card empty"><h2>${q.length?'Today\'s review is done.':'Nothing to review today.'}</h2><p>${nx!=null?`Next cards are due on ${dayLbl(nx)}.`:''} Got it sends a card to the next box (back in 1, 2, 4, 8, 16 days); Missed it brings it back today.</p>
+    <div class="row" style="justify-content:center"><button class="btn ghost" data-go="flashcards" data-x='{"fTopic":"","fMode":"all","fI":0,"flip":false}'>Drill all cards</button></div></div>`;
+  const meta=`<span class="meta"><span style="color:${catColor(e.category)}">${esc(catName(e.category))}</span><span>·</span><span>${lbl(e.lesson)}</span><span class="st">${P.srs[e.id]?'box '+box(e.id):'new'}</span></span>`;
+  if(!c)return head+`<button class="flash in" id="rcard" aria-label="Flip card">${meta}
+    ${S.rFlip?`<span class="strike s">${esc(e.original)}</span><span class="big">${esc(e.correction)}</span><span class="s mut" lang="${XL}">${esc(e.explanation)}</span>`
+      :`<span class="big red">${esc(e.original)}</span><span class="s mut">Say the correction out loud, then tap to check. ${esc(catHint(e.category))}</span>`}</button>
+  <div class="rate">${S.rFlip?`<button class="btn miss" data-rrate="0">Missed it</button><button class="btn ok" data-rrate="1">Got it</button>`:`<button class="btn" style="grid-column:1/-1;min-height:50px" id="rflipb">Flip card</button>`}</div>${S.rFlip?sayRow(e.correction,'r'+e.id+'.'+S.rI):''}
+  <p class="xs mut" style="margin:0"><span class="kbd">Space</span> flip · <span class="kbd">1</span> missed · <span class="kbd">2</span> got it</p>`;
+  return head+`<section class="card" style="padding:24px;display:flex;flex-direction:column;gap:18px">${meta}
+    <div><div class="lbl">You said</div><div class="strike" style="text-decoration:none">${esc(e.original)}</div></div>
+    <div style="border-left:3px solid ${catColor(e.category)};padding-left:12px"><div class="s mut">${esc(catHint(e.category))}</div></div>
+    <div class="gap">${esc(c.pre)}${!S.rRes?`<input id="rin" value="${esc(S.rVal)}" placeholder="…" aria-label="Missing word" autocapitalize="off" autocomplete="off" spellcheck="false" style="width:${Math.max(4,c.ans.length+1)}ch">`
+      :`<span class="blank ${S.rRes==='ok'?'good':'bad'}">${esc(S.rVal)}</span>`}${esc(c.post)}</div>
+    ${S.rHint&&!S.rRes?`<div class="s mut">Hint: ${c.ans.length} letters, starts with “${esc(c.ans[0])}”</div>`:''}
+    ${!S.rRes?`<div class="row"><button class="btn" id="rcheck">Check</button><button class="btn ghost" id="rhint">Hint</button><button class="btn link" id="rshow">I don't know</button></div>`
+      :`<div class="res"><div style="font-weight:600;color:${S.rRes==='ok'?'var(--ok)':'var(--pen)'}">${S.rRes==='ok'?'Correct.':`The word is “${esc(c.ans)}”. This card comes back at the end of today's review.`}</div>
+      <div class="corr">${esc(e.correction)}</div><div class="s mut" lang="${XL}">${esc(e.explanation)}</div>${sayRow(e.correction,'r'+e.id+'.'+S.rI)}
+      <div><button class="btn" id="rnext">Next →</button> <span class="xs mut">or press <span class="kbd">Enter</span></span></div></div>`}
+  </section>`;
+};
+V.vocab=()=>`${mtop('Vocabulary')}<div><h1>Vocabulary</h1><p class="sub">False friends and mix-ups from your lessons. Not affected by the platform filter.</p></div>
+  <div class="vgrid">${DATA.vocabulary.map(v=>`<div class="vcard"><div class="row" style="gap:8px;align-items:baseline"><span class="strike s">${esc(v.wrong)}</span><span class="mut">→</span><span class="corr">${esc(v.right)}</span></div><div class="xs mut" lang="${XL}">${esc(v.note)}</div></div>`).join('')}</div>`;
+V.plan=()=>{const tot=PLAN.reduce((a,w)=>a+w.tasks.length,0),done=Object.values(P.plan).filter(Boolean).length,cw=curWeek();
+  return `${mtop('Weekly plan')}<div class="between"><h1>Weekly plan</h1><span class="mut s mono">${done} of ${tot} done</span></div>
+  <div class="weeks">${PLAN.map((w,wi)=>{const d=w.tasks.filter((t,ti)=>P.plan[wi+'_'+ti]).length;return `<section class="card week ${wi===cw?'cur':''}" style="display:flex;flex-direction:column;gap:10px">
+    <div class="between"><div><div class="lbl" style="color:var(--blue)">${w.title}${wi===cw?' · this week':''}</div><h2 style="font-size:20px">${esc(w.focus)}</h2></div><span class="mono s mut">${d} / ${w.tasks.length}</span></div>
+    <div class="prog"><i style="width:${pct(d,w.tasks.length)}%;background:var(--ok)"></i></div>
+    <div>${w.tasks.map((t,ti)=>{const on=!!P.plan[wi+'_'+ti];return `<button class="task ${on?'on':''}" data-task="${wi}_${ti}" aria-pressed="${on}"><span class="cb">${on?'✓':''}</span><span class="tx">${esc(t)}</span></button>`}).join('')}</div></section>`}).join('')}</div>`;};
+
+function render(){chrome();document.getElementById('view').innerHTML=V[S.screen]();
+  const cin=document.getElementById('cin');if(cin){cin.focus();cin.addEventListener('input',e=>S.cVal=e.target.value)}
+  const as=document.querySelector('[data-autosay]');if(!as)S.said='';else if(P.autoSay&&as.dataset.autosay!==S.said){S.said=as.dataset.autosay;say(as.dataset.text)}
+  const rin=document.getElementById('rin');if(rin){rin.focus();rin.addEventListener('input',e=>S.rVal=e.target.value)}
+  const q=document.getElementById('q');if(q)q.addEventListener('input',e=>{S.q=e.target.value;const p=q.selectionStart;render();const n=document.getElementById('q');n.focus();n.setSelectionRange(p,p)});
+}
+function checkCloze(){const c=cDeck()[S.cI];if(!c||S.cRes||!S.cVal.trim())return;const g=norm(S.cVal.trim())===norm(c.ans);S.cRes=g?'ok':'bad';P.tried++;if(g)P.score++;save();render()}
+function pick(o){const c=cDeck()[S.cI];if(!c||S.cRes)return;const g=norm(o)===norm(c.ans);Object.assign(S,{cVal:o,cRes:g?'ok':'bad'});P.tried++;if(g)P.score++;save();render()}
+const nextC=()=>{Object.assign(S,{cI:S.cI+1,cVal:'',cRes:'',cHint:false});render()};
+function rate(g){const id=fDeck()[S.fI];if(!id)return;rateCard(id,g);S.fI++;S.flip=false;render()}
+
+document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;
+  if(t.dataset.say!==undefined){say(t.dataset.say);return}
+  if(t.dataset.slow){P.slow=!P.slow;save();render();return}
+  if(t.dataset.auto){P.autoSay=!P.autoSay;if(!P.autoSay&&TTS)speechSynthesis.cancel();save();render();return}
+  if(t.dataset.rrate){rGrade(t.dataset.rrate==='1');return}
+  if(t.dataset.newper){P.newPer=+t.dataset.newper;save();Object.assign(S,{rq:null,rI:0,rFlip:false,rVal:'',rRes:'',rHint:false});render();return}
+  if(t.id==='rcard'||t.id==='rflipb'){S.rFlip=!S.rFlip;render();return}
+  if(t.id==='rcheck'){rCheck();return} if(t.id==='rhint'){S.rHint=true;render();return}
+  if(t.id==='rshow'){const c=CZ[rQ()[S.rI]];Object.assign(S,{rRes:'bad',rVal:c.ans});render();return}
+  if(t.id==='rnext'){rGrade(S.rRes==='ok');return}
+  if(t.dataset.go){go(t.dataset.go,t.dataset.x?JSON.parse(t.dataset.x):null);return}
+  if(t.dataset.set){Object.assign(S,JSON.parse(t.dataset.set));render();return}
+  if(t.dataset.plat){P.plat=t.dataset.plat;Object.assign(S,{deck:null,cDeck:null,fI:0,cI:0,flip:false,cRes:'',cVal:'',eLes:'',eCat:''});save();render();return}
+  if(t.dataset.cmode){P.cMode=t.dataset.cmode;Object.assign(S,{cVal:'',cRes:'',cHint:false});save();render();return}
+  if(t.dataset.task){P.plan[t.dataset.task]=!P.plan[t.dataset.task];save();render();return}
+  if(t.dataset.rate){rate(t.dataset.rate==='1');return}
+  if(t.dataset.opt!==undefined){pick(t.dataset.opt);return}
+  if(t.id==='card'||t.id==='flipb'){S.flip=!S.flip;render();return}
+  if(t.id==='ccheck')checkCloze(); if(t.id==='chint'){S.cHint=true;render()} if(t.id==='cnext')nextC();
+  if(t.id==='cshow'){const c=cDeck()[S.cI];Object.assign(S,{cRes:'shown',cVal:c.ans});P.tried++;save();render()}
+});
+document.addEventListener('keydown',ev=>{
+  const inInput=ev.target.tagName==='INPUT';
+  if(S.screen==='flashcards'&&!inInput){if(ev.key===' '){ev.preventDefault();if(fDeck()[S.fI]){S.flip=!S.flip;render()}}else if(S.flip&&ev.key==='1')rate(false);else if(S.flip&&ev.key==='2')rate(true)}
+  if(S.screen==='review'){const id=rQ()[S.rI],cz=id&&!S.rMiss[id]&&box(id)>=1&&CZ[id];
+    if(cz){if(ev.key==='Enter'){ev.preventDefault();S.rRes?rGrade(S.rRes==='ok'):rCheck()}}
+    else if(id&&!inInput){if(ev.key===' '){ev.preventDefault();S.rFlip=!S.rFlip;render()}else if(S.rFlip&&ev.key==='1')rGrade(false);else if(S.rFlip&&ev.key==='2')rGrade(true)}}
+  if(S.screen==='cloze'){if(ev.key==='Enter'){ev.preventDefault();S.cRes?nextC():checkCloze()}
+    else if(!inInput&&P.cMode==='choose'&&!S.cRes&&/^[1-4]$/.test(ev.key)){const c=cDeck()[S.cI];if(c&&c.options[ev.key-1])pick(c.options[ev.key-1])}}
+});
+const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))S.screen=h;
+render();
+</script>
+</body>
+</html>

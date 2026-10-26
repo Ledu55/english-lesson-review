@@ -1,0 +1,2108 @@
+{
+ "reviewed_lessons": [
+  "cambly_lesson_2026-08-18.md",
+  "cambly_lesson_2026-08-21.md",
+  "cambly_lesson_2026-08-25.md",
+  "cambly_lesson_2026-08-28.md",
+  "cambly_lesson_2026-09-01.md",
+  "cambly_lesson_2026-09-08.md",
+  "cambly_lesson_2026-09-10.md",
+  "preply_lesson_2026-08-17.md",
+  "preply_lesson_2026-08-19.md",
+  "preply_lesson_2026-08-24.md"
+ ],
+ "errors": [
+  {
+   "id": "e001",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "this thing just don't do that",
+   "correction": "this thing just doesn't do that",
+   "explanation": "Sujeito singular na 3a pessoa pede 'doesn't'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e002",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "if the monitor would be in front of it",
+   "correction": "if the monitor were in front of it",
+   "explanation": "Em condicional hipotética, a oração com 'if' usa passado ('were'), nunca 'would'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e003",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "When I bought the bed, I thought I really want a nice large bed",
+   "correction": "I thought I really wanted a nice large bed",
+   "explanation": "Concordância de tempos: depois de 'thought', o verbo vai para o passado.",
+   "confidence": "high"
+  },
+  {
+   "id": "e004",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "she is in the master's degree right now",
+   "correction": "she is doing a master's degree right now",
+   "explanation": "Em inglês faz-se (do/pursue) um mestrado; não se 'está em' ele, e não há artigo 'the'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e005",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "She is a florist engineer",
+   "correction": "She is a forest engineer",
+   "explanation": "'Florestal' = forest; 'florist' é florista (falso cognato por semelhança com 'floresta/flor').",
+   "confidence": "medium"
+  },
+  {
+   "id": "e006",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "people are more happier there",
+   "correction": "people are happier there",
+   "explanation": "Adjetivo curto já forma comparativo com -er; 'more happier' é duplo comparativo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e007",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "other",
+   "original": "in the South people don't like much the Northwest people",
+   "correction": "in the South people don't like Northeastern people much",
+   "explanation": "Advérbio 'much' vai no fim, não entre verbo e objeto. Além disso, 'Nordeste' = Northeast (Northwest foi provável erro de palavra ou transcrição).",
+   "confidence": "medium"
+  },
+  {
+   "id": "e008",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "I live in the capital with two colleagues",
+   "correction": "I lived in the capital with two colleagues",
+   "explanation": "A experiência já terminou (três meses, no passado), então usa-se passado simples.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e009",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "I think I can live in a place that doesn't offer me good food",
+   "correction": "I think I can't live in a place that doesn't offer me good food",
+   "explanation": "O sentido pede 'can't'. 'Can' e 'can't' soam parecidos em fala rápida; enfatize o 'can't' com vogal /æ/ e o 'n't'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e010",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "So you can go to the place fast, as we do in the countryside city",
+   "correction": "So you can't go to a place fast, as we do in a countryside city",
+   "explanation": "Contexto (trânsito terrível) pede 'can't'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e011",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "But besides that, I can see something really changing in the future",
+   "correction": "But besides that, I can't see anything really changing in the future",
+   "explanation": "O argumento é negativo ('can't see'). O mesmo ocorre mais adiante ('I can see another thing related to AI'). Padrão can/can't.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e012",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I can drive to there with two or three hours",
+   "correction": "I can drive there in two or three hours",
+   "explanation": "Duração até completar algo: 'in'. 'There' é advérbio e dispensa 'to'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e013",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I just had luck to never be in a place that people are assaulted / I got luck",
+   "correction": "I've just been lucky never to be somewhere people are assaulted / I got lucky",
+   "explanation": "'Luck' é substantivo; para 'ter sorte' use 'be lucky' ou 'get lucky'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e014",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "The principal office",
+   "correction": "The main office / headquarters",
+   "explanation": "'Principal' em inglês é diretor de escola; para 'principal' use 'main'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e015",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "they really aim this place",
+   "correction": "they really target / aim at this place",
+   "explanation": "'Aim' pede 'at' (ou use 'target').",
+   "confidence": "medium"
+  },
+  {
+   "id": "e016",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "they can replace three animators for using AI",
+   "correction": "they can replace three animators by using AI",
+   "explanation": "Meio/instrumento: 'by + -ing'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e017",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "Some minor jobs in the lawyers",
+   "correction": "Some minor jobs in law / lawyers' jobs",
+   "explanation": "'In the lawyers' não funciona; use 'in law' (área) ou 'the legal field'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e018",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "The exactly same requirements",
+   "correction": "Exactly the same requirements / The exact same requirements",
+   "explanation": "Advérbio 'exactly' vem antes de 'the same'; 'the exact same' usa o adjetivo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e019",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "find another use to data centers",
+   "correction": "find another use for data centers",
+   "explanation": "'Use for' = utilidade para.",
+   "confidence": "high"
+  },
+  {
+   "id": "e020",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I'm thinking for a really far future",
+   "correction": "I'm thinking about the distant future",
+   "explanation": "'Think about'; e 'far future' soa melhor como 'distant future'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e021",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "other",
+   "original": "We are putting a lot of efforts building data centers",
+   "correction": "We are putting a lot of effort into building data centers",
+   "explanation": "'Effort' é incontável aqui; 'put effort into + -ing'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e022",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "she needs to go to the gym in a car",
+   "correction": "she needs to go to the gym by car",
+   "explanation": "Meio de transporte: 'by car' (ou 'in her car').",
+   "confidence": "high"
+  },
+  {
+   "id": "e023",
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "her being approved in the state university",
+   "correction": "her being accepted by / at the state university",
+   "explanation": "Para universidades usa-se 'accepted' (não 'approved') e 'at/by'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e024",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "other",
+   "original": "so I could not select the right option for I have a lesson",
+   "correction": "so I couldn't select the right option for my lesson",
+   "explanation": "'For' é preposição e pede substantivo ('my lesson'), não oração.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e025",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "most of my job is talk to people",
+   "correction": "most of my job is talking to people",
+   "explanation": "Após 'is' como complemento, use gerúndio.",
+   "confidence": "high"
+  },
+  {
+   "id": "e026",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "in this part of the meeting, we talk about it",
+   "correction": "in this part of the meeting, we talked about it",
+   "explanation": "Referência a algo que já aconteceu na reunião: passado.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e027",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "other",
+   "original": "we need to put some efforts",
+   "correction": "we need to put in some effort",
+   "explanation": "'Effort' incontável; 'put in effort'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e028",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "articles",
+   "original": "in a different ways",
+   "correction": "in different ways",
+   "explanation": "Plural não leva 'a'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e029",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "with more people think about it",
+   "correction": "with more people thinking about it",
+   "explanation": "Após 'with + objeto' use particípio presente.",
+   "confidence": "high"
+  },
+  {
+   "id": "e030",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "if you only trust in the record",
+   "correction": "if you only trust the record",
+   "explanation": "'Trust' + objeto direto (sem 'in'); 'trust in' é mais abstrato/religioso.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e031",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "when the weekend start",
+   "correction": "when the weekend starts",
+   "explanation": "3a pessoa do singular no presente leva -s.",
+   "confidence": "high"
+  },
+  {
+   "id": "e032",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I let me be more flexible about what I want to eat",
+   "correction": "I allow myself to be more flexible",
+   "explanation": "'Let' não é usado com reflexivo assim; use 'allow myself to' ou 'I let myself be'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e033",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "sometimes I wait my meals",
+   "correction": "sometimes I weigh my meals",
+   "explanation": "'Wait' e 'weigh' soam iguais /weɪt/ vs /weɪ/; aqui o contexto pede 'weigh' (pesar). Atenção ao /t/ final.",
+   "confidence": "high"
+  },
+  {
+   "id": "e034",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "other",
+   "original": "but the most case, I just follow a measure",
+   "correction": "but in most cases, I just follow a measure",
+   "explanation": "Expressão correta: 'in most cases' (plural, com 'in').",
+   "confidence": "high"
+  },
+  {
+   "id": "e035",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "other",
+   "original": "two scoop of rice",
+   "correction": "two scoops of rice",
+   "explanation": "Plural -s após número.",
+   "confidence": "high"
+  },
+  {
+   "id": "e036",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "it help you with making the balance in your belly",
+   "correction": "it helps you maintain balance in your gut",
+   "explanation": "3a pessoa singular: 'helps'. 'Belly' é barriga; para intestino use 'gut'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e037",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "if you have less calorie than you are spending",
+   "correction": "if you take in fewer calories than you are burning",
+   "explanation": "Contável plural: 'fewer calories'. 'Burn' é mais natural que 'spend'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e038",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "it's easily to surpass your calories",
+   "correction": "it's easy to surpass your calories",
+   "explanation": "Depois de 'be' usa-se adjetivo ('easy'), não advérbio.",
+   "confidence": "high"
+  },
+  {
+   "id": "e039",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "the other things that only came from fruits",
+   "correction": "the other things that only come from fruits",
+   "explanation": "Fato geral no presente: 'come'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e040",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "Fish, I like much",
+   "correction": "Fish, I like a lot",
+   "explanation": "'Much' em afirmativa soa estranho; use 'a lot' ou 'really like'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e041",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "articles",
+   "original": "in a easy way",
+   "correction": "in an easy way",
+   "explanation": "'An' antes de som vocálico.",
+   "confidence": "high"
+  },
+  {
+   "id": "e042",
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "category": "other",
+   "original": "it's not that easy to find in other place",
+   "correction": "it's not that easy to find elsewhere / in other places",
+   "explanation": "'Other' exige plural ou use 'another place'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e043",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "when I really tired to be, to sit",
+   "correction": "when I'm really tired of sitting",
+   "explanation": "Falta o verbo 'am' e a estrutura 'tired of + -ing'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e044",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "it's comfortable to be stand",
+   "correction": "it's comfortable to be standing",
+   "explanation": "'Be' + particípio presente.",
+   "confidence": "high"
+  },
+  {
+   "id": "e045",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "articles",
+   "original": "I already spent a time at the gym",
+   "correction": "I've already spent time at the gym",
+   "explanation": "'Time' incontável nesse sentido: sem 'a'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e046",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "since I still playing video game, I still using the computer after the work",
+   "correction": "since I'm still playing video games, I'm still using the computer after work",
+   "explanation": "Falta o auxiliar 'am'; 'after work' sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e047",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "And when I went back to, from the gym, I take my...",
+   "correction": "And when I come back from the gym, I have my breakfast",
+   "explanation": "Rotina habitual: presente simples. O tutor também corrigiu 'came back home' vs 'went back'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e048",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "make me wake the rest of the day with a good energy",
+   "correction": "keep me energized the rest of the day with good energy",
+   "explanation": "'Wake' não significa manter acordado; 'good energy' sem artigo.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e049",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "articles",
+   "original": "without energy the rest after the lunch",
+   "correction": "without energy for the rest of the day after lunch",
+   "explanation": "'Lunch' sem artigo em refeição genérica.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e050",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "because it's much packed",
+   "correction": "because it's much more packed / much too crowded",
+   "explanation": "Falta 'more' para o comparativo.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e051",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "other",
+   "original": "Usually I wake up 5 and 30",
+   "correction": "Usually I wake up at 5:30",
+   "explanation": "Horas: 'five-thirty' (correção explícita do tutor), com 'at'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e052",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "articles",
+   "original": "If you go to the bed like 9 and 30",
+   "correction": "If you go to bed at nine thirty",
+   "explanation": "'Go to bed' sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e053",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "the sun just rise a little bit earlier",
+   "correction": "the sun just rises a little earlier",
+   "explanation": "Sujeito singular -> 'rises'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e054",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I would be wake up if the sun is already up",
+   "correction": "I would wake up / I would be awake if the sun is already up",
+   "explanation": "'Be wake' não existe; use 'wake up' ou 'be awake'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e055",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "It's the exactly time the sun is rising",
+   "correction": "It's exactly the time the sun is rising",
+   "explanation": "Advérbio 'exactly' antes do artigo. O mesmo em 'the exactly time I wake up'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e056",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "the sun really delay to rise",
+   "correction": "the sun rises really late",
+   "explanation": "'Delay' é transitivo; para o sol, diga 'rises later'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e057",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I wake up 5:50 maybe",
+   "correction": "I wake up at 5:50 maybe",
+   "explanation": "Horas exatas pedem 'at'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e058",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I dress my coat",
+   "correction": "I put on my coat",
+   "explanation": "'Dress' = vestir outra pessoa/vestir-se; para casaco, 'put on' ou 'wear'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e059",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I go on feet to the gym",
+   "correction": "I go to the gym on foot",
+   "explanation": "'A pé' = 'on foot'. Repetido na mesma aula.",
+   "confidence": "high"
+  },
+  {
+   "id": "e060",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I already feel warm up",
+   "correction": "I already feel warmed up",
+   "explanation": "Particípio como adjetivo: 'warmed up'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e061",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "warm up in the elliptical",
+   "correction": "warm up on the elliptical",
+   "explanation": "Aparelhos: 'on'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e062",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I am a very introvert person",
+   "correction": "I am a very introverted person",
+   "explanation": "Adjetivo: 'introverted'; 'introvert' é substantivo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e063",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "to be really close to the stand",
+   "correction": "to be really close to the stage",
+   "explanation": "Palco = stage.",
+   "confidence": "low"
+  },
+  {
+   "id": "e064",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "articles",
+   "original": "I don't go to the home",
+   "correction": "I didn't go home",
+   "explanation": "'Home' como advérbio, sem 'to the'; e contexto passado.",
+   "confidence": "high"
+  },
+  {
+   "id": "e065",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "I thought, I will not work out",
+   "correction": "I thought, I won't work out / I wouldn't work out",
+   "explanation": "Concordância de tempos na fala reportada.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e066",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I know how much people hated us",
+   "correction": "I know how many people hated us",
+   "explanation": "'People' é contável: 'many'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e067",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "At the evening",
+   "correction": "In the evening",
+   "explanation": "Partes do dia: 'in the evening/morning' (exceto 'at night'). Repetido várias vezes.",
+   "confidence": "high"
+  },
+  {
+   "id": "e068",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "Sunday we have like farofa and pasta to lunch",
+   "correction": "on Sunday we have farofa and pasta for lunch",
+   "explanation": "'For lunch'; dias da semana pedem 'on'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e069",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "other",
+   "original": "most of the part of the year",
+   "correction": "most of the year",
+   "explanation": "'Most of the part' é calco de 'a maior parte do ano'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e070",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I don't mess up with my body in a health meaning",
+   "correction": "I don't mess up my body in terms of health",
+   "explanation": "'Mess up' é transitivo direto; 'meaning' é falso cognato de 'sentido' -> use 'in terms of' ou 'in a health sense'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e071",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I really don't have enough hunger",
+   "correction": "I'm really not hungry enough",
+   "explanation": "'Hunger' é substantivo, mas a colocação natural é 'I don't get hungry'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e072",
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "And the diet is very restrict",
+   "correction": "And the diet is very restrictive",
+   "explanation": "Adjetivo = 'restrictive'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e073",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "Before, we had a contract to, like, they staff people in the clients",
+   "correction": "Before, we had a contract where they staffed people at the client's site",
+   "explanation": "Estrutura quebrada; 'staff people at/for the clients'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e074",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "leave to the client choose what they want to do",
+   "correction": "leave it to the client to choose what to do",
+   "explanation": "'Leave it to + pessoa + to + verbo'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e075",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "All the teams and projects we have for this client has an outcome",
+   "correction": "All the teams and projects we have for this client have an outcome",
+   "explanation": "Sujeito plural pede 'have'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e076",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I didn't thought that it's common in Europe",
+   "correction": "I didn't think that it was common in Europe",
+   "explanation": "Após 'didn't' use o verbo na forma base.",
+   "confidence": "high"
+  },
+  {
+   "id": "e077",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "I use more large shirts",
+   "correction": "I wear larger / looser shirts",
+   "explanation": "Adjetivo curto: 'larger'. 'Wear' em vez de 'use' para roupa.",
+   "confidence": "high"
+  },
+  {
+   "id": "e078",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "what I was supposed to do today, at Friday",
+   "correction": "what I was supposed to do today, on Friday",
+   "explanation": "Dia da semana: 'on'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e079",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I think it's the best place I can prep for the weekend",
+   "correction": "I think it's the best time to prep for the weekend",
+   "explanation": "Contexto temporal pede 'time', não 'place'.",
+   "confidence": "low"
+  },
+  {
+   "id": "e080",
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "from month to Wednesday / Weekends are secret to me",
+   "correction": "from Monday to Wednesday / Weekends are sacred to me",
+   "explanation": "Possíveis erros de pronúncia: 'Monday' soou 'month' e 'sacred' soou 'secret'. Revise /ˈmʌndeɪ/ e /ˈseɪkrɪd/.",
+   "confidence": "low"
+  },
+  {
+   "id": "e081",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "other",
+   "original": "It's been good, isn't it?",
+   "correction": "It's been good, hasn't it?",
+   "explanation": "Tag question espelha o auxiliar: 'has' -> 'hasn't'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e082",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "the week really started at Tuesdays",
+   "correction": "the week really starts on Tuesdays",
+   "explanation": "Dias da semana: 'on'. E fato habitual: presente.",
+   "confidence": "high"
+  },
+  {
+   "id": "e083",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "we select to work with at Tuesday",
+   "correction": "we pick what to work on on Tuesday",
+   "explanation": "Dia da semana: 'on'; 'work on' (tarefa).",
+   "confidence": "high"
+  },
+  {
+   "id": "e084",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "articles",
+   "original": "not the Monday",
+   "correction": "not Monday",
+   "explanation": "Dias da semana não levam artigo neste uso.",
+   "confidence": "high"
+  },
+  {
+   "id": "e085",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "because at Monday we try to finish",
+   "correction": "because on Monday we try to finish",
+   "explanation": "Dia da semana: 'on'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e086",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "it's the really kickstart of the week",
+   "correction": "it's the real kickstart of the week",
+   "explanation": "Antes de substantivo use adjetivo ('real'), não advérbio.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e087",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I left the weekend with all the sensation of",
+   "correction": "I left the weekend with the feeling of",
+   "explanation": "'Sensation' (sensação física) vs 'feeling' (sentimento); 'sensação' em PT é falso amigo parcial.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e088",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "Retro is reveal things we did",
+   "correction": "A retro is where we review things we did",
+   "explanation": "'Review' (revisar) e 'reveal' (revelar) são diferentes; falta artigo e sujeito.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e089",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "the next steps we would do",
+   "correction": "the next steps we will do",
+   "explanation": "Futuro real: 'will', não 'would'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e090",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "a lot of more rituals",
+   "correction": "a lot more rituals / many more rituals",
+   "explanation": "'A lot more' (sem 'of') ou 'many more'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e091",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "very freestyle at this project",
+   "correction": "very freestyle on this project",
+   "explanation": "Projeto: 'on'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e092",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "the rituals was very important",
+   "correction": "the rituals were very important",
+   "explanation": "Plural -> 'were'. Repetido em 'the rituals was more soft'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e093",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "the rituals was more soft or more funny",
+   "correction": "the rituals were softer or more fun",
+   "explanation": "'Soft' -> 'softer'; 'funny' (engraçado) vs 'fun' (divertido).",
+   "confidence": "high"
+  },
+  {
+   "id": "e094",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "We only use it at PowerPoint slides",
+   "correction": "We only used it in PowerPoint slides",
+   "explanation": "Dentro de um documento/slide: 'in'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e095",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "articles",
+   "original": "We were infrastructure team",
+   "correction": "We were an infrastructure team",
+   "explanation": "Substantivo contável singular precisa de artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e096",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "every section you have in WhatsApp is charted by Meta",
+   "correction": "every session you have in WhatsApp is charged by Meta",
+   "explanation": "'Section' (seção) vs 'session' (sessão); 'chart' vs 'charge'. Falso amigo e pronúncia do /dʒ/ e /ʃ/. Repetido ~8 vezes.",
+   "confidence": "high"
+  },
+  {
+   "id": "e097",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "every frame time you have a conversation",
+   "correction": "within a given time frame",
+   "explanation": "Ordem correta: 'time frame'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e098",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "everything were fine, very well performative",
+   "correction": "everything was fine, very performant",
+   "explanation": "'Everything' é singular. 'Performative' tem outro sentido; use 'performant' ou 'well-performing'. Também 'efficiency, performance and reliability was' deveria ser 'were'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e099",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "running through this data pipelines",
+   "correction": "running through these data pipelines",
+   "explanation": "Plural: 'these'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e100",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "You need to use it as a justify to cancel the credit card",
+   "correction": "You need to use it as justification to cancel the credit card",
+   "explanation": "Substantivo = 'justification'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e101",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "articles",
+   "original": "like a credit card fraud",
+   "correction": "like credit card fraud",
+   "explanation": "'Fraud' como categoria geral é incontável.",
+   "confidence": "high"
+  },
+  {
+   "id": "e102",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "All the companies will work using the same methodology",
+   "correction": "Not all companies will work using the same methodology / All companies won't...",
+   "explanation": "Sentido pede negativa ('will not'). Pode ser erro de pronúncia/transcrição de 'won't'.",
+   "confidence": "low"
+  },
+  {
+   "id": "e103",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I like the pre-visibility",
+   "correction": "I like the visibility / predictability",
+   "explanation": "'Pre-visibility' não existe; 'previsibilidade' = predictability.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e104",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "do you mind to think about it too hard?",
+   "correction": "do you bother thinking about it too hard?",
+   "explanation": "'Mind' é seguido de gerúndio, não infinitivo.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e105",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "I can finish it very hurry",
+   "correction": "I can finish it very quickly / in a hurry",
+   "explanation": "Substantivo usado como advérbio.",
+   "confidence": "high"
+  },
+  {
+   "id": "e106",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "So I hurried a lot. I give my best",
+   "correction": "I gave my best",
+   "explanation": "Narrativa no passado: mantenha o passado.",
+   "confidence": "high"
+  },
+  {
+   "id": "e107",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "I can imagine like a PTM, more engineering related methodology, working for tech",
+   "correction": "I can't imagine a PTM... working for tech",
+   "explanation": "O argumento seguinte é negativo ('will not work'), portanto 'can't'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e108",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "In my last company, I did a very boring thing",
+   "correction": "At my last company, I did a very boring thing",
+   "explanation": "Empresa onde se trabalha: 'at'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e109",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "tech projects have the tendency of change",
+   "correction": "tech projects have a tendency to change",
+   "explanation": "'Tendency to + verbo'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e110",
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "easier to be adapted as things will be changed, are going to change",
+   "correction": "easier to adapt as things change",
+   "explanation": "Oração temporal/comparativa no presente, voz ativa.",
+   "confidence": "high"
+  },
+  {
+   "id": "e111",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "articles",
+   "original": "Since it was holiday yesterday",
+   "correction": "Since it was a holiday yesterday",
+   "explanation": "Contável singular: 'a holiday'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e112",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "I have less things to complain about",
+   "correction": "I have fewer things to complain about",
+   "explanation": "Contável plural: 'fewer'. Repetido com 'less people' (e113).",
+   "confidence": "high"
+  },
+  {
+   "id": "e113",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "every year we have less people in the world / less people watching advertisement",
+   "correction": "fewer people",
+   "explanation": "'People' contável -> 'fewer'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e114",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "complain about the war",
+   "correction": "complain about work",
+   "explanation": "Provável 'work' pronunciado /wɔːr/ ('war'). Treine /wɜːrk/ com vogal central e /k/ final.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e115",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "a difficult relationship between people in Brazil and the nationalism",
+   "correction": "a difficult relationship with nationalism",
+   "explanation": "'Relationship with'; 'nationalism' sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e116",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "since maybe 2017 ... we kind of had a difficult relationship",
+   "correction": "since 2017 we have had a difficult relationship",
+   "explanation": "'Since' + ponto no passado ainda válido: present perfect.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e117",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "articles",
+   "original": "the meaning of the Independence Day / the patriotism",
+   "correction": "the meaning of Independence Day / patriotism",
+   "explanation": "Nomes de feriados e conceitos abstratos sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e118",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "people kind of let the celebration apart",
+   "correction": "people kind of set the celebration aside",
+   "explanation": "'Deixar de lado' = 'set aside / leave aside'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e119",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I don't give a damn to Independence Day",
+   "correction": "I don't give a damn about Independence Day",
+   "explanation": "'Give a damn/damn about'. Cuidado com o registro palavrão.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e120",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "give a different meaning for the Independence Day",
+   "correction": "give a different meaning to Independence Day",
+   "explanation": "'Give meaning to'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e121",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "they are using it to care about other things",
+   "correction": "they are using it to focus on other things",
+   "explanation": "'Care about' = importar-se; para 'cuidar de/focar', 'focus on'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e122",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "this extreme rise in Brazil",
+   "correction": "this extreme right in Brazil",
+   "explanation": "Provável 'right' soando 'rise'. Treine /raɪt/ vs /raɪz/.",
+   "confidence": "low"
+  },
+  {
+   "id": "e123",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "in the 2000s, from 2017 to 2022",
+   "correction": "in the 2010s, from 2017 to 2022",
+   "explanation": "2017-2022 está nos anos 2010/2020, não nos 2000s.",
+   "confidence": "high"
+  },
+  {
+   "id": "e124",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "people that share the same ideas of you",
+   "correction": "people that share the same ideas as you",
+   "explanation": "'The same ... as'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e125",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "go check to the source",
+   "correction": "go check the source",
+   "explanation": "'Check' transitivo, sem 'to'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e126",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "other",
+   "original": "different point of views",
+   "correction": "different points of view",
+   "explanation": "Plural vai em 'points'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e127",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "if you will only eat meat, it's good for your body",
+   "correction": "if you only eat meat, it's good for your body",
+   "explanation": "Oração com 'if' não leva 'will'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e128",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "check the sauce",
+   "correction": "check the source",
+   "explanation": "'Sauce' /sɔːs/ vs 'source' /sɔːrs/: falta o /r/. Repetido duas vezes.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e129",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "You don't need a graduation to check the facts",
+   "correction": "You don't need a degree to check the facts",
+   "explanation": "Falso cognato: 'graduation' = formatura (cerimônia). Diploma/curso = 'degree'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e130",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "The best is listening to both sides and check the source",
+   "correction": "The best is listening to both sides and checking the source",
+   "explanation": "Paralelismo de formas -ing.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e131",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "other",
+   "original": "I think it's not only the second",
+   "correction": "I think it's not just the second reason",
+   "explanation": "Falta o substantivo; contexto pouco claro.",
+   "confidence": "low"
+  },
+  {
+   "id": "e132",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "because bugs, articles, those things",
+   "correction": "because books, articles, those things",
+   "explanation": "Provável 'books' soando 'bugs': /bʊks/ vs /bʌɡz/.",
+   "confidence": "low"
+  },
+  {
+   "id": "e133",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "articles",
+   "original": "for most of the teenagers",
+   "correction": "for most teenagers",
+   "explanation": "'Most' + substantivo, sem 'of the' em sentido geral.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e134",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "Elon Musk bought a chair in the government",
+   "correction": "Elon Musk bought a seat in the government",
+   "explanation": "Cargo/lugar = 'seat'; 'chair' é cadeira ou presidente de comitê.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e135",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "he repeat the success",
+   "correction": "he repeated the success",
+   "explanation": "Contexto passado.",
+   "confidence": "high"
+  },
+  {
+   "id": "e136",
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "How many of him is out there? I are out there",
+   "correction": "How many like him are out there?",
+   "explanation": "Plural 'are'. Trecho confuso, possível falha de transcrição.",
+   "confidence": "low"
+  },
+  {
+   "id": "e137",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I work in a MacBook from the company",
+   "correction": "I work on a MacBook from the company",
+   "explanation": "Equipamento: 'on'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e138",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "look to it",
+   "correction": "look at it",
+   "explanation": "'Look at'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e139",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "before turn on the computer",
+   "correction": "before turning on the computer",
+   "explanation": "Após preposição: gerúndio.",
+   "confidence": "high"
+  },
+  {
+   "id": "e140",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I can switch in the monitor between them",
+   "correction": "I can switch the monitor between them",
+   "explanation": "'Switch' transitivo sem 'in'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e141",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "All these tools doesn't really need powerful machine",
+   "correction": "All these tools don't really need a powerful machine",
+   "explanation": "Plural -> 'don't'; 'a powerful machine'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e142",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "articles",
+   "original": "because it's on cloud",
+   "correction": "because it's in the cloud",
+   "explanation": "'In the cloud'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e143",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "because it have more graphic power",
+   "correction": "because it has more graphic power",
+   "explanation": "3a pessoa: 'has'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e144",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "it has very less RAM than my MacBook",
+   "correction": "it has much less RAM than my MacBook",
+   "explanation": "Modificador de comparativo: 'much', não 'very'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e145",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "it has a lot of more power than the MacBook",
+   "correction": "it has a lot more power than the MacBook",
+   "explanation": "'A lot more', sem 'of'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e146",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "articles",
+   "original": "develop using MacBook with more RAM",
+   "correction": "develop using a MacBook with more RAM",
+   "explanation": "Artigo indefinido.",
+   "confidence": "high"
+  },
+  {
+   "id": "e147",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "other",
+   "original": "between two device",
+   "correction": "between two devices",
+   "explanation": "Plural após 'two'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e148",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "it's almost like have another computer",
+   "correction": "it's almost like having another computer",
+   "explanation": "'Like' + gerúndio.",
+   "confidence": "high"
+  },
+  {
+   "id": "e149",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "comparatives-adverbs",
+   "original": "it's quite more expensive to add RAM",
+   "correction": "it's quite a bit more expensive / much more expensive",
+   "explanation": "'Quite more' não é natural.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e150",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "polarity",
+   "original": "You can edit by yourself",
+   "correction": "You can't upgrade it yourself",
+   "explanation": "Contexto de 'closed environment' pede 'can't'. 'Edit' -> 'upgrade'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e151",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "ask Apple to more RAM from Fabric",
+   "correction": "ask Apple to add more RAM at the factory",
+   "explanation": "'Fabric' (tecido) vs 'factory' /ˈfæktəri/; falta o verbo 'add'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e152",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "But I didn't pay it",
+   "correction": "But I didn't pay for it",
+   "explanation": "'Pay for' algo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e153",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "it kind of depreciate a little bit more",
+   "correction": "it kind of depreciates a little more",
+   "explanation": "3a pessoa: 'depreciates'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e154",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "Yeah, I not agree",
+   "correction": "Yeah, I don't agree",
+   "explanation": "Negativa precisa de 'do not'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e155",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "subject-verb-agreement",
+   "original": "All my colleagues was not joining",
+   "correction": "All my colleagues were not joining",
+   "explanation": "Plural -> 'were'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e156",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "very far below of the average",
+   "correction": "far below the average",
+   "explanation": "'Below' não leva 'of'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e157",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "try to be stable, to still in the field",
+   "correction": "try to be stable, to stay in the field",
+   "explanation": "'Still' é advérbio; o verbo é 'stay'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e158",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "other",
+   "original": "I like three years working my ass off as never",
+   "correction": "I spent three years working my ass off like never before",
+   "explanation": "'Like never before'; 'spent' + período + -ing.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e159",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I want to went back in the same situation",
+   "correction": "I wouldn't want to go back to the same situation",
+   "explanation": "Após 'to' use forma base. Pelo contexto, o sentido provável é negativo ('I wouldn't want').",
+   "confidence": "high"
+  },
+  {
+   "id": "e160",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "I born here in the countryside",
+   "correction": "I was born here in the countryside",
+   "explanation": "'Be born' (voz passiva).",
+   "confidence": "high"
+  },
+  {
+   "id": "e161",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "I made a lot of relationships with people",
+   "correction": "I made a lot of connections",
+   "explanation": "'Relationships' soa afetivo; para profissionais, 'connections/contacts'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e162",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "vocabulary",
+   "original": "because was not compensating",
+   "correction": "because it wasn't paying enough",
+   "explanation": "'Compensate' ≠ 'compensar' (valer a pena); falta sujeito 'it'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e163",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "more than I was earning the internship",
+   "correction": "more than I was earning in the internship",
+   "explanation": "Falta 'in'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e164",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "I repeat the process until I reach a consulting company",
+   "correction": "I repeated the process until I reached a consulting company",
+   "explanation": "Narrativa no passado.",
+   "confidence": "high"
+  },
+  {
+   "id": "e165",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "other",
+   "original": "So I specialized myself",
+   "correction": "So I specialized",
+   "explanation": "'Specialize' é intransitivo (calco de 'me especializei').",
+   "confidence": "medium"
+  },
+  {
+   "id": "e166",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "tenses",
+   "original": "Since my last company, I follow a really straight and fixed kind of job",
+   "correction": "Since my last company, I have followed a stable kind of role",
+   "explanation": "'Since' pede present perfect.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e167",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "verb-forms",
+   "original": "Maybe in the five years I can retire myself if I still doing things outside the job",
+   "correction": "Maybe in five years I can retire if I'm still doing things outside the job",
+   "explanation": "'Retire' é intransitivo; falta 'am' em 'I'm still doing'; 'in five years' sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e168",
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "category": "prepositions",
+   "original": "I kind of in peace of that with it",
+   "correction": "I'm kind of at peace with it",
+   "explanation": "'At peace with'; falta o verbo 'be'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e169",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "tenses",
+   "original": "now I'm mandating a year",
+   "correction": "now I've been managing for a year",
+   "explanation": "Duração que começou no passado e continua: present perfect (continuous) com 'for'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e170",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "vocabulary",
+   "original": "I'm mandating",
+   "correction": "I'm managing / leading",
+   "explanation": "Falso cognato de 'mandar'. 'Mandate' é impor/determinar; para liderar equipe use 'manage' ou 'lead'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e171",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "prepositions",
+   "original": "I started to work with technology / my friends in the gym",
+   "correction": "I started working in technology / my friends and me at the gym",
+   "explanation": "Área de atuação: 'work in'. Academia como lugar: 'at the gym'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e172",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "other",
+   "original": "It's my all day activity",
+   "correction": "It's my all-day activity",
+   "explanation": "Adjetivo composto antes de substantivo leva hífen.",
+   "confidence": "high"
+  },
+  {
+   "id": "e173",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "articles",
+   "original": "The English is not only for...",
+   "correction": "English is not only for...",
+   "explanation": "Nome de idioma sem artigo.",
+   "confidence": "high"
+  },
+  {
+   "id": "e174",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "verb-forms",
+   "original": "for read documentations and documents the project",
+   "correction": "for reading documentation and documenting the project",
+   "explanation": "Após preposição, gerúndio, em estrutura paralela. 'Documentation' é incontável.",
+   "confidence": "high"
+  },
+  {
+   "id": "e175",
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "category": "other",
+   "original": "a lacking vocabulary",
+   "correction": "a lack of vocabulary",
+   "explanation": "Substantivo: 'a lack of'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e176",
+   "lesson": "2026-08-19",
+   "source": "preply",
+   "category": "tenses",
+   "original": "if I wanted to ask the best informed person, it will be you",
+   "correction": "if I wanted ..., it would be you",
+   "explanation": "Condicional com 'wanted' pede 'would' na outra oração.",
+   "confidence": "high"
+  },
+  {
+   "id": "e177",
+   "lesson": "2026-08-19",
+   "source": "preply",
+   "category": "comparatives-adverbs",
+   "original": "the best informed person",
+   "correction": "the most informed person",
+   "explanation": "Superlativo de 'informed' usa 'most'.",
+   "confidence": "medium"
+  },
+  {
+   "id": "e178",
+   "lesson": "2026-08-19",
+   "source": "preply",
+   "category": "other",
+   "original": "Let me think about I listen more than I talk",
+   "correction": "Let me think — I listen more than I speak",
+   "explanation": "'Think about' não introduz oração direta; separe as ideias.",
+   "confidence": "high"
+  },
+  {
+   "id": "e179",
+   "lesson": "2026-08-19",
+   "source": "preply",
+   "category": "vocabulary",
+   "original": "So the flow, it's depreciated",
+   "correction": "So the flow has deteriorated",
+   "explanation": "'Depreciate' é desvalorizar (preço/ativo). Para piorar, 'deteriorate'. Mesmo erro em e153.",
+   "confidence": "high"
+  },
+  {
+   "id": "e180",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "articles",
+   "original": "The family dinner, we already have an example",
+   "correction": "At family dinner, we already have an example",
+   "explanation": "Situação genérica sem artigo, com 'at'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e181",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "prepositions",
+   "original": "an example why you're still single",
+   "correction": "an example of why you're still single",
+   "explanation": "'Example of' antes de oração com 'why'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e182",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "other",
+   "original": "It's enough itself",
+   "correction": "It's enough on its own / in and of itself",
+   "explanation": "Calco de 'por si só'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e183",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "other",
+   "original": "I think it's not that it's a tough question",
+   "correction": "I think it's not that tough a question",
+   "explanation": "Estrutura 'not that + adjetivo + a + substantivo'.",
+   "confidence": "high"
+  },
+  {
+   "id": "e184",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "articles",
+   "original": "When it's the family dinner ... I think it's tough question too",
+   "correction": "When it's a family dinner ... it's a tough question too",
+   "explanation": "Contável singular precisa de artigo ('a tough question'). Padrão recorrente.",
+   "confidence": "high"
+  },
+  {
+   "id": "e185",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "other",
+   "original": "Any political question, it's very tough",
+   "correction": "Any political question is very tough",
+   "explanation": "Sujeito duplicado (tópico + pronome), calco da fala em português.",
+   "confidence": "high"
+  },
+  {
+   "id": "e186",
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "category": "vocabulary",
+   "original": "a lot of parents",
+   "correction": "a lot of relatives",
+   "explanation": "Falso cognato: 'parentes' = relatives; 'parents' = pais.",
+   "confidence": "high"
+  }
+ ],
+ "vocabulary": [
+  {
+   "wrong": "mandating",
+   "right": "managing / leading",
+   "note": "Falso cognato de 'mandar' (Preply 08-17)."
+  },
+  {
+   "wrong": "depreciated (flow)",
+   "right": "deteriorated",
+   "note": "Depreciar = perder valor; piorar = deteriorate (Preply 08-19; também Cambly 09-10)."
+  },
+  {
+   "wrong": "parents",
+   "right": "relatives",
+   "note": "Parentes = relatives (Preply 08-24)."
+  },
+  {
+   "wrong": "section",
+   "right": "session",
+   "note": "'Section' = seção; 'session' = sessão (WhatsApp, treino, reunião). Aparece ~8x na aula de 09-01 e em 08-28."
+  },
+  {
+   "wrong": "chart",
+   "right": "charge",
+   "note": "Cobrar = 'charge' /tʃɑːrdʒ/."
+  },
+  {
+   "wrong": "sauce",
+   "right": "source",
+   "note": "Fonte = 'source' /sɔːrs/; pronuncie o /r/."
+  },
+  {
+   "wrong": "wait (meals)",
+   "right": "weigh",
+   "note": "Pesar = 'weigh'."
+  },
+  {
+   "wrong": "graduation",
+   "right": "degree",
+   "note": "Falso cognato: graduação = degree / undergraduate course."
+  },
+  {
+   "wrong": "principal office",
+   "right": "main office / headquarters",
+   "note": "'Principal' = diretor de escola."
+  },
+  {
+   "wrong": "sensation",
+   "right": "feeling",
+   "note": "Sensação emocional = feeling."
+  },
+  {
+   "wrong": "chair (in the government)",
+   "right": "seat",
+   "note": "Cargo político = seat."
+  },
+  {
+   "wrong": "introvert (adj.)",
+   "right": "introverted",
+   "note": "Adjetivo = introverted."
+  },
+  {
+   "wrong": "restrict (adj.)",
+   "right": "restrictive",
+   "note": "Dieta restritiva."
+  },
+  {
+   "wrong": "performative",
+   "right": "performant / high-performing",
+   "note": "'Performative' tem outro sentido."
+  },
+  {
+   "wrong": "justify (noun)",
+   "right": "justification",
+   "note": "Classe gramatical errada."
+  },
+  {
+   "wrong": "compensate (valer a pena)",
+   "right": "pay enough / be worth it",
+   "note": "'Compensate' = indenizar."
+  },
+  {
+   "wrong": "florist engineer",
+   "right": "forest engineer",
+   "note": "Engenheiro florestal."
+  },
+  {
+   "wrong": "dress my coat",
+   "right": "put on my coat",
+   "note": "Vestir roupa = put on / wear."
+  },
+  {
+   "wrong": "fabric (hardware)",
+   "right": "factory",
+   "note": "Fábrica = factory."
+  },
+  {
+   "wrong": "(sweet flute)",
+   "right": "recorder",
+   "note": "Flauta doce = recorder. Palavra que o aluno não sabia na aula de 09-10."
+  },
+  {
+   "wrong": "party (marching)",
+   "right": "parade",
+   "note": "Desfile = parade (aluno hesitou na aula de 09-08)."
+  },
+  {
+   "wrong": "proposal (job)",
+   "right": "offer",
+   "note": "Proposta de emprego = offer."
+  },
+  {
+   "wrong": "month / secret",
+   "right": "Monday / sacred",
+   "note": "Possíveis falhas de pronúncia, aula de 08-28."
+  },
+  {
+   "wrong": "war / rise / bugs",
+   "right": "work / right / books",
+   "note": "Possíveis falhas de pronúncia (vogais) na aula de 09-08; confiança baixa."
+  }
+ ],
+ "strengths": [
+  {
+   "lesson": "2026-09-10",
+   "text": "Speaks at length with connected arguments on technical topics (AI, data governance, agile methods)."
+  },
+  {
+   "lesson": "2026-09-08",
+   "text": "Varied connectors (not only that, even though, since) and few word-order problems in long sentences."
+  },
+  {
+   "lesson": "2026-09-01",
+   "text": "Frequent self-correction while speaking, a sign of active monitoring."
+  },
+  {
+   "lesson": "2026-08-25",
+   "text": "Solid technical vocabulary: API, pipelines, KPIs, governance."
+  }
+ ],
+ "stats": [
+  {
+   "lesson": "2026-08-17",
+   "source": "preply",
+   "tutor": "Tutor E",
+   "talk": null,
+   "wpm": null,
+   "unique": null,
+   "learner_min": 21
+  },
+  {
+   "lesson": "2026-08-19",
+   "source": "preply",
+   "tutor": "Tutor D",
+   "talk": null,
+   "wpm": null,
+   "unique": null,
+   "learner_min": 17
+  },
+  {
+   "lesson": "2026-08-24",
+   "source": "preply",
+   "tutor": "Tutor E",
+   "talk": null,
+   "wpm": null,
+   "unique": null,
+   "learner_min": 10
+  },
+  {
+   "lesson": "2026-08-18",
+   "source": "cambly",
+   "tutor": "Tutor A",
+   "talk": 60,
+   "wpm": 110,
+   "unique": 420,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-08-21",
+   "source": "cambly",
+   "tutor": "Tutor B",
+   "talk": 35,
+   "wpm": 149,
+   "unique": 314,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-08-25",
+   "source": "cambly",
+   "tutor": "Tutor A",
+   "talk": 64,
+   "wpm": 135,
+   "unique": 478,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-08-28",
+   "source": "cambly",
+   "tutor": "Tutor B",
+   "talk": 38,
+   "wpm": 135,
+   "unique": 344,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-09-01",
+   "source": "cambly",
+   "tutor": "Tutor A",
+   "talk": 76,
+   "wpm": 110,
+   "unique": 467,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-09-08",
+   "source": "cambly",
+   "tutor": "Tutor A",
+   "talk": 65,
+   "wpm": 105,
+   "unique": 413,
+   "learner_min": null
+  },
+  {
+   "lesson": "2026-09-10",
+   "source": "cambly",
+   "tutor": "Tutor A",
+   "talk": 65,
+   "wpm": 126,
+   "unique": 453,
+   "learner_min": null
+  }
+ ]
+}

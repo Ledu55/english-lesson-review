@@ -1,0 +1,12 @@
+{
+  "period": { "from": "2026-08-15", "to": "2026-10-15" },
+  "platforms": ["cambly", "preply"],
+  "learner": {
+    "native_language": "Brazilian Portuguese",
+    "explanation_language": "pt-BR",
+    "level": "B2-C1",
+    "background": "data and tech professional"
+  },
+  "review": { "model": "claude-sonnet-5-5", "max_tokens": 16000 },
+  "browser": { "channel": "chrome", "profile_dir": ".browser-profile", "cdp_url": null }
+}

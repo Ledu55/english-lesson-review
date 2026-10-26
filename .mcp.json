@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "english-lesson-review": {
+      "command": "python",
+      "args": ["-m", "lessonreview.mcp_server"]
+    }
+  }
+}
