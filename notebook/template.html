@@ -180,6 +180,15 @@ h3{margin:0;font:600 15px var(--f-body)}
   .tabbar button[aria-current="page"]{color:var(--blue);background:var(--blue-soft);font-weight:600}
   .tabbar .dot{position:absolute;top:3px;right:12px;width:7px;height:7px;border-radius:50%;background:var(--pen)}
 }
+
+/* lessons (only when served by `python -m lessonreview ui`) */
+.paste{width:100%;min-height:150px;resize:vertical;font:13px/1.45 var(--f-mono);color:var(--ink);background:var(--sheet-2);border:1px solid var(--rule);border-radius:9px;padding:10px 12px}
+.field{font:inherit;font-size:13.5px;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;min-height:38px}
+.log{margin:0;white-space:pre-wrap;font:12.5px/1.45 var(--f-mono);background:var(--sheet-2);border-left:3px solid var(--ink-3);border-radius:6px;padding:10px 12px}
+.log.ok{border-color:var(--ok)} .log.bad{border-color:var(--pen)}
+.tag{font:600 11px var(--f-mono);border-radius:999px;padding:2px 8px}
+.tag.ok{background:var(--ok-soft);color:var(--ok)} .tag.wait{background:var(--pen-soft);color:var(--pen)}
+details summary{cursor:pointer}
 .mtop{display:none;justify-content:space-between;align-items:center;gap:10px}
 .mtop b{font:600 20px var(--f-display)}
 </style>
@@ -247,6 +256,8 @@ const sayRow=(t,k)=>TTS?`<div class="row" data-autosay="${esc(k)}" data-text="${
 const S={screen:'dashboard',eCat:'',eLes:'',q:'',fTopic:'',fMode:'due',deck:null,fI:0,flip:false,cTopic:'',cDeck:null,cI:0,cVal:'',cRes:'',cHint:false,rq:null,rI:0,rFlip:false,rVal:'',rRes:'',rHint:false,rMiss:{}};
 const VIEWS=[['dashboard','Today','M3 12l9-8 9 8M5 10v10h14V10'],['review','Daily review','M4 12l5 5L20 6'],['diagnosis','Diagnosis','M4 19V9m6 10V5m6 14v-7m4 7H2'],['errors','Errors','M4 6h16M4 12h16M4 18h10'],
  ['flashcards','Flashcards','M6 4h12v16H6zM9 8h6'],['cloze','Fill the gap','M4 15h16M7 11h3m4 0h3'],['vocab','Vocabulary','M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3zM5 17a3 3 0 013-3h11'],['plan','Weekly plan','M5 5h14v15H5zM5 9h14M9 3v4m6-4v4']];
+const LIVE=!!DATA.meta.live;
+if(LIVE)VIEWS.push(['lessons','Lessons','M4 13h4l2 3h4l2-3h4M4 13l2-8h12l2 8v6H4z']);
 const ico=d=>`<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 
 const errs=()=>DATA.errors.filter(e=>P.plat==='all'||e.source===P.plat);
@@ -263,7 +274,7 @@ function chrome(){
   document.getElementById('nav').innerHTML=VIEWS.map(v=>`<button data-go="${v[0]}" ${S.screen===v[0]?'aria-current="page"':''}>${ico(v[2])}<span>${v[1]}</span>${v[0]==='review'&&dueN?`<span class="due" title="Left in today's review">${dueN}</span>`:counts[v[0]]?`<span class="n">${counts[v[0]]}</span>`:''}</button>`).join('');
   document.getElementById('tabbar').innerHTML=VIEWS.map(v=>`<button data-go="${v[0]}" ${S.screen===v[0]?'aria-current="page"':''}>${ico(v[2])}<span>${v[1].replace('Weekly ','').replace('Daily ','')}</span>${v[0]==='review'&&dueN?'<i class="dot"></i>':''}</button>`).join('');
   document.getElementById('plat').innerHTML=platSeg();
-  const ds=DATA.stats.map(s=>s.lesson).sort();document.getElementById('range').textContent=lbl(ds[0])+' – '+lbl(ds[ds.length-1])+', '+ds[0].slice(0,4);
+  const ds=DATA.stats.map(s=>s.lesson).sort();document.getElementById('range').textContent=ds.length?lbl(ds[0])+' – '+lbl(ds[ds.length-1])+', '+ds[0].slice(0,4):'No lessons reviewed yet';
 }
 const platSeg=()=>[['all','All'],['cambly','Cambly'],['preply','Preply']].map(p=>`<button data-plat="${p[0]}" aria-pressed="${P.plat===p[0]}">${p[1]}</button>`).join('');
 const mtop=t=>`<div class="mtop"><b>${t}</b><div class="seg">${platSeg()}</div></div>`;
@@ -434,10 +445,156 @@ V.plan=()=>{const tot=PLAN.reduce((a,w)=>a+w.tasks.length,0),done=Object.values(
     <div class="prog"><i style="width:${pct(d,w.tasks.length)}%;background:var(--ok)"></i></div>
     <div>${w.tasks.map((t,ti)=>{const on=!!P.plan[wi+'_'+ti];return `<button class="task ${on?'on':''}" data-task="${wi}_${ti}" aria-pressed="${on}"><span class="cb">${on?'✓':''}</span><span class="tx">${esc(t)}</span></button>`}).join('')}</div></section>`}).join('')}</div>`;};
 
+/* Lessons: import, review and build through the local server */
+const L$={st:null,paste:'',plat:'',date:'',log:{},busy:false,prov:{tab:''},ext:{open:false,accept:false,plat:'',limit:'',job:null}};
+async function lLoad(){try{L$.st=await (await fetch('/api/state')).json()}catch(e){L$.st={error:'The local server is not running. Start it with: python -m lessonreview ui'}}
+  if(L$.st.extracting&&!L$.ext.timer)lPoll();if(S.screen==='lessons')render()}
+// extraction runs in the background on the server: follow its log until it ends
+async function lPoll(){try{L$.ext.job=await (await fetch('/api/extract')).json()}catch(e){L$.ext.timer=null;return}
+  if(L$.ext.job.running){L$.ext.timer=setTimeout(lPoll,2000);if(S.screen==='lessons'&&!lTyping())render();return}
+  L$.ext.timer=null;L$.ext.accept=false;await lLoad()}
+const lTyping=()=>document.activeElement&&/^(TEXTAREA|INPUT|SELECT)$/.test(document.activeElement.tagName);
+async function lExtract(){if(!L$.ext.accept)return;L$.busy=true;render();
+  let res;try{res=await lPost('/api/extract',{accept_terms_risk:true,platform:L$.ext.plat,limit:parseInt(L$.ext.limit)||null})}
+  catch(e){res={ok:false,message:'The local server is not running. Start it with: python -m lessonreview ui'}}
+  L$.busy=false;L$.ext.job=res.ok?{running:true,log:''}:{running:false,ok:false,log:res.message};
+  if(res.ok)lPoll();await lLoad()}
+async function lPost(url,body){const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});return r.json()}
+async function lRun(key,url,body){L$.busy=true;L$.log[key]={ok:null,message:'Running…'};render();
+  try{L$.log[key]=await lPost(url,body)}catch(e){L$.log[key]={ok:false,message:'The local server is not running. Start it with: python -m lessonreview ui'}}
+  L$.busy=false;
+  // review and build change the notebook's data: reload so every screen shows it
+  if(L$.log[key].ok&&/review|build/.test(url)){sessionStorage.setItem('lessons.log',JSON.stringify(L$.log));location.hash='lessons';location.reload();return}
+  if(key==='import'&&L$.log[key].ok)L$.paste='';
+  await lLoad();
+}
+try{L$.log=JSON.parse(sessionStorage.getItem('lessons.log')||'{}');sessionStorage.removeItem('lessons.log')}catch(e){}
+const lLog=k=>L$.log[k]?`<pre class="log ${L$.log[k].ok===true?'ok':L$.log[k].ok===false?'bad':''}">${esc(L$.log[k].message||L$.log[k].error||'')}</pre>`:'';
+V.lessons=()=>{const st=L$.st,dis=L$.busy?'disabled':'';
+  if(!st){lLoad();return `${mtop('Lessons')}<h1>Lessons</h1><p class="mut">Loading…</p>`}
+  if(st.error)return `${mtop('Lessons')}<h1>Lessons</h1><p class="mut">${esc(st.error)}</p>`;
+  const rev=st.lessons.filter(l=>l.reviewed).length;
+  return `${mtop('Lessons')}<div><h1>Lessons</h1><p class="sub">${st.lessons.length} imported · ${rev} reviewed · ${st.pending} waiting · period ${esc(st.period.from)} to ${esc(st.period.to)}</p></div>
+  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+    <div class="between"><h2>1 · Import a lesson</h2>${st.inbox?`<span class="mut s">${st.inbox} file${st.inbox>1?'s':''} in inbox/</span>`:''}</div>
+    <div class="row">${['cambly','preply'].map(p=>`<a class="btn ghost" href="${esc(st.history[p])}" target="_blank" rel="noopener">${p==='cambly'?'Cambly':'Preply'} lesson history ↗</a>`).join('')}</div>
+    <p class="mut s" style="margin:0">Open a lesson from your history, select all (Ctrl+A), copy and paste it here. Cambly: the FEEDBACK tab, then the TRANSCRIPT tab, one after the other. Preply: open "See all grammar feedback" and "See all vocabulary" first.</p>
+    <textarea class="paste" id="paste" placeholder="Paste the lesson page text here">${esc(L$.paste)}</textarea>
+    <details><summary class="mut s">Platform or date not detected?</summary><div class="row" style="margin-top:8px">
+      <select class="field" id="lplat"><option value="">Detect platform</option>${['cambly','preply'].map(p=>`<option value="${p}" ${L$.plat===p?'selected':''}>${p==='cambly'?'Cambly':'Preply'}</option>`).join('')}</select>
+      <input class="field" id="ldate" type="date" value="${esc(L$.date)}"></div></details>
+    <div class="row"><button class="btn" data-lrun="import" ${dis}>Import</button><button class="btn ghost" data-lrun="inbox" ${dis}>Import files from inbox/</button></div>
+    ${lLog('import')}
+  </section>
+  <section class="card" style="display:flex;flex-direction:column;gap:12px;border-color:var(--pen)">
+    <details ${L$.ext.open||st.extracting?'open':''} id="extbox"><summary><h2 style="display:inline">Automated extraction</h2> <span class="tag wait">against the platforms' terms</span></summary>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+      <div class="log bad" style="font-family:var(--f-body);font-size:13.5px">Both platforms forbid automated access to their sites:
+• Cambly User Agreement, section 7: no robot, spider, scraper or other automated means to access the Platform.
+• Preply Terms of Service: no viewing, copying or procuring content by automated means (scripts, bots, scrapers).
+Using it can get your account suspended or closed. Copying the pages yourself (above) is the safe way.</div>
+      <p class="mut s" style="margin:0">It opens a Chrome window with its own profile. The first time, log in to each platform there; it waits up to 10 minutes. Lessons in your period (${esc(st.period.from)} to ${esc(st.period.to)}) are saved to raw/, then reviewed as usual.</p>
+      ${st.extract_available?`
+      <label class="row s" style="align-items:flex-start;gap:8px"><input type="checkbox" id="extok" ${L$.ext.accept?'checked':''} ${st.extracting?'disabled':''} style="margin-top:3px">
+        <span>I have read the warning. I am choosing to run automated extraction on my own account and I accept the risk of it being suspended.</span></label>
+      <div class="row">
+        <select class="field" id="extplat" ${st.extracting?'disabled':''}><option value="">${st.platforms.map(p=>p==='cambly'?'Cambly':'Preply').join(' + ')}</option>${['cambly','preply'].map(p=>`<option value="${p}" ${L$.ext.plat===p?'selected':''}>${p==='cambly'?'Cambly':'Preply'} only</option>`).join('')}</select>
+        <input class="field" id="extlim" type="number" min="1" placeholder="Max lessons" value="${esc(L$.ext.limit)}" style="width:130px" ${st.extracting?'disabled':''}>
+        <button class="btn miss" data-lrun="extract" ${L$.ext.accept&&!st.extracting&&!L$.busy?'':'disabled'}>${st.extracting?'Extracting…':'Run extraction'}</button>
+      </div>`:'<p class="s" style="margin:0">Needs Playwright: <span class="mono">pip install playwright</span>, then restart this page.</p>'}
+      ${L$.ext.job&&(L$.ext.job.log||L$.ext.job.running)?`<pre class="log ${L$.ext.job.running?'':L$.ext.job.ok?'ok':'bad'}">${esc(L$.ext.job.log||'Starting…')}</pre>`:''}
+    </div></details>
+  </section>
+  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+    <h2>2 · Review</h2>
+    <p class="mut s" style="margin:0">Claude reads each lesson and finds your errors. Use your Claude subscription through MCP (no key needed), or an API key (billed per use on console.anthropic.com).</p>
+    <div class="weeks" style="gap:12px">
+      <div style="display:flex;flex-direction:column;gap:10px;border:1px solid var(--rule);border-radius:10px;padding:14px">
+        <div class="between"><h3>Claude subscription · MCP</h3>${st.mcp.desktop_connected?'<span class="tag ok">Desktop connected</span>':''}</div>
+        ${st.mcp.installed?'':'<p class="s" style="margin:0;color:var(--pen)">The MCP package is missing: <span class="mono">pip install -r requirements.txt</span></p>'}
+        <p class="s" style="margin:0"><b>Claude Code:</b> ${st.mcp.claude_code?'ready. Open this folder in Claude Code and ask it to "review all pending lessons, then build the notebook".':'.mcp.json is missing from the project folder.'}</p>
+        <p class="s" style="margin:0"><b>Claude Desktop:</b> ${st.mcp.desktop_connected?'connected. Ask it to "review all pending lessons with the english-lesson-review tools, then build the notebook".':st.mcp.desktop_app?'not connected yet.':'not found on this computer. Install it from claude.ai/download, then come back.'}</p>
+        <div class="row">${st.mcp.desktop_app?`<button class="btn ${st.mcp.desktop_connected?'ghost':''}" data-lrun="mcp" ${dis}>${st.mcp.desktop_connected?'Reconnect':'Connect'} Claude Desktop</button>`:''}<button class="btn link" data-lrun="mcpcopy">Copy config</button></div>
+        <details><summary class="mut xs">Config for other MCP apps</summary><pre class="log" style="margin-top:8px;font-size:11.5px">${esc(JSON.stringify(st.mcp.entry,null,2))}</pre></details>
+        ${lLog('mcp')}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;border:1px solid var(--rule);border-radius:10px;padding:14px">
+${lApi(st,dis)}
+      </div>
+    </div>
+    <div class="row"><button class="btn link" data-lrun="review-offline" ${dis}>No Claude? Review offline with the platform's own corrections only</button></div>
+    ${lLog('review')}
+  </section>
+  <section class="card" style="display:flex;flex-direction:column;gap:12px">
+    <h2>3 · Update the notebook</h2>
+    <p class="mut s" style="margin:0">Adds newly reviewed lessons to every screen and writes output/notebook.html and output/voice_coach.md.</p>
+    <div class="row"><button class="btn" data-lrun="build" ${dis}>Update notebook</button>${st.outputs.includes('voice_coach.md')?'<a class="btn link" href="/output/voice_coach.md" target="_blank">Open voice coach</a>':''}</div>
+    ${lLog('build')}
+  </section>
+  <section class="card" style="padding:6px 8px"><div class="tbl"><table>
+    <thead><tr><th>Date</th><th>Platform</th><th>Tutor</th><th>File</th><th>Review</th></tr></thead>
+    <tbody>${st.lessons.length?st.lessons.map(l=>`<tr><td class="mono">${esc(l.date||'')}</td><td>${l.source==='cambly'?'Cambly':l.source==='preply'?'Preply':esc(l.source||'')}</td><td>${esc(l.tutor||'')}</td><td class="mono xs">${esc(l.file||'')}</td>
+      <td>${l.reviewed?'<span class="tag ok">reviewed</span>':l.status&&l.status!=='done'?'<span class="tag" style="background:var(--sheet-2);color:var(--ink-3)">not extracted</span>':'<span class="tag wait">waiting</span>'}</td></tr>`).join(''):'<tr><td colspan="5" class="mut">No lessons yet. Paste one above.</td></tr>'}</tbody>
+  </table></div></section>`;};
+/* API box: Claude, or any provider with an OpenAI-compatible API */
+function lApi(st,dis){const A=st.api,o=A.openai,tab=L$.prov.tab||A.provider,ps=A.presets;
+  const pre=L$.prov.preset||(o&&o.preset)||'openai',P0=ps[pre],same=o&&o.preset===pre;
+  const url=L$.prov.base_url??(same?o.base_url:P0.base_url),model=L$.prov.model??(same?o.model:'');
+  // the selected tab decides what reviews use; another provider counts once Connect has saved it
+  const ready=tab==='openai'?!!o:!!A.anthropic.source;
+  const label=tab==='openai'?(o?`${esc(o.model)} · ${esc(ps[o.preset].name)}`:''):'Claude';
+  const seg=`<div class="seg" style="align-self:flex-start">${[['anthropic','Claude'],['openai','Other provider']].map(t=>`<button data-ptab="${t[0]}" aria-pressed="${tab===t[0]}">${t[1]}</button>`).join('')}</div>`;
+  const body=tab==='anthropic'?`
+    <div class="between"><span class="mut s">Anthropic API key</span>${A.anthropic.source==='saved'?`<span class="tag ok">saved ${esc(A.anthropic.hint)}</span>`:A.anthropic.source==='env'?'<span class="tag ok">from ANTHROPIC_API_KEY</span>':''}</div>
+    <p class="mut s" style="margin:0">Create one at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener" style="color:var(--blue)">console.anthropic.com ↗</a>.</p>
+    <div class="row"><input class="field" id="lkey" type="password" autocomplete="off" placeholder="${A.anthropic.source==='saved'?'Paste a new key to replace it':'sk-ant-…'}" style="flex:1;min-width:180px">
+      <button class="btn ghost" data-lrun="key" ${dis}>Save key</button>${A.anthropic.source==='saved'?`<button class="btn link" data-lrun="keydel" ${dis}>Remove</button>`:''}</div>`:`
+    <div class="row"><select class="field" id="ppre" style="flex:1">${Object.entries(ps).map(([k,v])=>`<option value="${k}" ${k===pre?'selected':''}>${esc(v.name)}</option>`).join('')}</select>
+      ${P0.keys_url?`<a class="btn link" href="${esc(P0.keys_url)}" target="_blank" rel="noopener">Get a key ↗</a>`:''}</div>
+    <input class="field" id="purl" placeholder="Server URL, e.g. https://api.example.com/v1" value="${esc(url)}">
+    <input class="field" id="pmodel" placeholder="Model name${P0.model?', e.g. '+esc(P0.model):''}" value="${esc(model)}">
+    <input class="field" id="pkey" type="password" autocomplete="off" placeholder="${same&&o.hint?`Key saved ${esc(o.hint)}; paste a new one to replace it`:P0.key?'API key':'API key (if the server needs one)'}">
+    <div class="row"><button class="btn ghost" data-lrun="prov" ${dis}>${same?'Save changes':o?'Connect instead':'Connect'}</button>${o?`<button class="btn link" data-lrun="provdel" ${dis}>Remove</button>`:''}</div>
+    <p class="mut xs" style="margin:0">Any server with an OpenAI-compatible API works. Your lesson transcripts are sent to the provider you choose. Results depend on the model: small local models miss more errors.</p>`;
+  return `<div class="between"><h3>API</h3>${ready?`<span class="tag ok">${label}</span>`:''}</div>
+    ${seg}${body}
+    <p class="mut xs" style="margin:0">Keys are checked, then kept in secrets.json in this folder, never in git.</p>
+    ${lLog('key')}
+    <button class="btn" data-lrun="review-api" ${dis} ${ready?'':'disabled'}>${ready?`Review with ${label}`:tab==='openai'?'Connect a provider above to review':'Save an API key above to review'} · ${st.pending} waiting</button>`}
+
+function lAct(cmd){
+  if(cmd==='prov'){const v=id=>(document.getElementById(id)||{}).value||'';const preset=L$.prov.preset||(L$.st.api.openai&&L$.st.api.openai.preset)||'openai';
+    return lRun('key','/api/provider',{preset,base_url:v('purl'),model:v('pmodel'),key:v('pkey')}).then(()=>{if(L$.log.key.ok){L$.prov={tab:''};render()}})}
+  if(cmd==='provdel')return lRun('key','/api/provider',{remove:true}).then(()=>{if(L$.log.key.ok){L$.prov={tab:''};render()}});
+  if(cmd==='review-api'){const tab=L$.prov.tab||L$.st.api.provider;
+    // make the server use the provider on the selected tab before reviewing
+    if(tab!==L$.st.api.provider)return lPost('/api/provider',{use:tab}).then(r=>r.ok?lRun('review','/api/run/review-api'):(L$.log.review=r,render()));
+    return lRun('review','/api/run/review-api')}
+  if(cmd==='import')return lRun('import','/api/import',{text:L$.paste,platform:L$.plat,date:L$.date});
+  if(cmd==='inbox')return lRun('import','/api/run/import');
+  if(cmd==='extract')return lExtract();
+  if(cmd==='key'||cmd==='keydel'){const k=cmd==='key'?(document.getElementById('lkey')||{}).value||'':'';
+    if(cmd==='key'&&!k.trim())return;return lRun('key','/api/key',{key:k})}
+  if(cmd==='mcp')return lRun('mcp','/api/mcp/desktop');
+  if(cmd==='mcpcopy'){const t=JSON.stringify(L$.st.mcp.entry,null,2);
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{L$.log.mcp={ok:true,message:'Copied. Paste it into your MCP app\'s config (inside "mcpServers" if it already has one).'};render()},
+      ()=>{L$.log.mcp={ok:false,message:'Couldn\'t copy: open "Config for other MCP apps" and copy it from there.'};render()});return}
+  lRun(cmd.startsWith('review')?'review':'build','/api/run/'+cmd);
+}
+
 function render(){chrome();document.getElementById('view').innerHTML=V[S.screen]();
   const cin=document.getElementById('cin');if(cin){cin.focus();cin.addEventListener('input',e=>S.cVal=e.target.value)}
   const as=document.querySelector('[data-autosay]');if(!as)S.said='';else if(P.autoSay&&as.dataset.autosay!==S.said){S.said=as.dataset.autosay;say(as.dataset.text)}
   const rin=document.getElementById('rin');if(rin){rin.focus();rin.addEventListener('input',e=>S.rVal=e.target.value)}
+  const pa=document.getElementById('paste');if(pa)pa.addEventListener('input',e=>L$.paste=e.target.value);
+  const lp=document.getElementById('lplat');if(lp)lp.addEventListener('change',e=>L$.plat=e.target.value);
+  const ld=document.getElementById('ldate');if(ld)ld.addEventListener('change',e=>L$.date=e.target.value);
+  const pp=document.getElementById('ppre');if(pp)pp.addEventListener('change',e=>{L$.prov={tab:'openai',preset:e.target.value};render()});
+  [['purl','base_url'],['pmodel','model']].forEach(([id,k])=>{const f=document.getElementById(id);if(f)f.addEventListener('input',e=>L$.prov[k]=e.target.value)});
+  const xb=document.getElementById('extbox');if(xb)xb.addEventListener('toggle',()=>L$.ext.open=xb.open);
+  const xo=document.getElementById('extok');if(xo)xo.addEventListener('change',e=>{L$.ext.accept=e.target.checked;render()});
+  const xp=document.getElementById('extplat');if(xp)xp.addEventListener('change',e=>L$.ext.plat=e.target.value);
+  const xl=document.getElementById('extlim');if(xl)xl.addEventListener('input',e=>L$.ext.limit=e.target.value);
   const q=document.getElementById('q');if(q)q.addEventListener('input',e=>{S.q=e.target.value;const p=q.selectionStart;render();const n=document.getElementById('q');n.focus();n.setSelectionRange(p,p)});
 }
 function checkCloze(){const c=cDeck()[S.cI];if(!c||S.cRes||!S.cVal.trim())return;const g=norm(S.cVal.trim())===norm(c.ans);S.cRes=g?'ok':'bad';P.tried++;if(g)P.score++;save();render()}
@@ -447,6 +604,8 @@ function rate(g){const id=fDeck()[S.fI];if(!id)return;rateCard(id,g);S.fI++;S.fl
 
 document.addEventListener('click',ev=>{const t=ev.target.closest('button');if(!t)return;
   if(t.dataset.say!==undefined){say(t.dataset.say);return}
+  if(t.dataset.lrun){lAct(t.dataset.lrun);return}
+  if(t.dataset.ptab){L$.prov={tab:t.dataset.ptab};render();return}
   if(t.dataset.slow){P.slow=!P.slow;save();render();return}
   if(t.dataset.auto){P.autoSay=!P.autoSay;if(!P.autoSay&&TTS)speechSynthesis.cancel();save();render();return}
   if(t.dataset.rrate){rGrade(t.dataset.rrate==='1');return}
@@ -475,7 +634,7 @@ document.addEventListener('keydown',ev=>{
   if(S.screen==='cloze'){if(ev.key==='Enter'){ev.preventDefault();S.cRes?nextC():checkCloze()}
     else if(!inInput&&P.cMode==='choose'&&!S.cRes&&/^[1-4]$/.test(ev.key)){const c=cDeck()[S.cI];if(c&&c.options[ev.key-1])pick(c.options[ev.key-1])}}
 });
-const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))S.screen=h;
+const h=location.hash.slice(1);if(VIEWS.some(v=>v[0]===h))S.screen=h;else if(LIVE&&!DATA.errors.length)S.screen='lessons';
 render();
 </script>
 </body>

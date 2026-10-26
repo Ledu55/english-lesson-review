@@ -1,4 +1,4 @@
-"""Command line: python -m lessonreview <import|extract|review|build|all|status>"""
+"""Command line: python -m lessonreview <import|extract|review|build|all|status|ui>"""
 import argparse
 import sys
 
@@ -51,10 +51,17 @@ def main():
     a.add_argument("--limit", type=int)
 
     sub.add_parser("status", help="show progress")
+
+    u = sub.add_parser("ui", help="open a local page to import, review and build")
+    u.add_argument("--port", type=int, default=8765)
+    u.add_argument("--no-browser", action="store_true", help="don't open the browser")
     args = ap.parse_args()
     cfg = config.load()
 
-    if args.cmd == "import":
+    if args.cmd == "ui":
+        from . import ui
+        ui.run(args, cfg)
+    elif args.cmd == "import":
         from . import importer
         importer.run(args, cfg)
     elif args.cmd == "extract":

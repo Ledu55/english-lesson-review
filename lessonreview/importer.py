@@ -127,6 +127,8 @@ def import_file(path, cfg, manifest, platform=None, day=None):
 
 
 def run(args, cfg):
+    if not args.files:
+        INBOX.mkdir(exist_ok=True)
     targets = [Path(p) for p in args.files] if args.files else [INBOX]
     files = []
     for t in targets:

@@ -176,3 +176,118 @@ def test_find_date(line, expected):
     from lessonreview import importer
     cfg = config._merge(config.DEFAULTS, {"period": {"from": "2026-08-01", "to": "2026-10-31"}})
     assert importer.find_date(["Header", line], cfg) == expected
+
+
+def test_ui_paste_import_and_server(tmp_path, monkeypatch):
+    import threading
+    import urllib.error
+    import urllib.request
+    from http.server import HTTPServer
+
+    from lessonreview import importer, ui
+    for name in ("RAW", "ANALYSIS", "REVIEWS", "ERRORS", "OUTPUT", "MANIFEST"):
+        monkeypatch.setattr(config, name, tmp_path / getattr(config, name).relative_to(config.ROOT))
+    monkeypatch.setattr(importer, "INBOX", tmp_path / "inbox")
+    cfg = config._merge(config.DEFAULTS, {"period": {"from": "2026-01-01", "to": "2026-03-31"}})
+    page = (config.REPO / "examples" / "inbox" / "cambly_copied_page.txt").read_text(encoding="utf-8")
+
+    assert ui.paste_import(page, cfg)["ok"]
+    assert ui.paste_import(page, cfg) == {"ok": False, "message": "Skipped: already imported."}
+    assert not ui.paste_import("hello", cfg)["ok"]
+    assert len(list(importer.INBOX.glob("*.txt"))) == 1  # failed pastes leave nothing behind
+    s = ui.state(cfg)
+    assert [l["file"] for l in s["lessons"]] == ["cambly_lesson_2026-01-12.md"] and s["pending"] == 1
+
+    ui.Handler.cfg = cfg
+    server = HTTPServer(("127.0.0.1", 0), ui.Handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{server.server_port}"
+    try:
+        def call(path, body=None, ctype="application/json"):
+            req = urllib.request.Request(base + path, data=body, headers={"Content-Type": ctype} if body else {})
+            try:
+                with urllib.request.urlopen(req) as r:
+                    return r.status, json.loads(r.read())
+            except urllib.error.HTTPError as e:
+                return e.code, None
+
+        with urllib.request.urlopen(base + "/") as r:
+            assert '"live": true' in r.read().decode("utf-8")  # the notebook, with the Lessons screen
+        assert call("/api/state")[1]["pending"] == 1
+        assert call("/api/run/review-offline", b"{}")[1]["ok"]
+        assert call("/api/state")[1]["lessons"][0]["reviewed"]
+        assert call("/api/run/review-offline", b"{}", "text/plain")[0] == 403  # cross-site form posts are refused
+        assert call("/api/run/extract", b"{}")[0] == 404
+        # automated extraction never starts unless the user ticked the risk box on the page
+        assert not call("/api/extract", b"{}")[1]["ok"]
+        assert not call("/api/extract", b'{"accept_terms_risk": "yes"}')[1]["ok"]
+        assert not ui.JOB["running"]
+        assert call("/api/state")[1]["history"]["cambly"].startswith("https://www.cambly.com/")
+        assert call("/output/../config.json")[0] == 404
+    finally:
+        server.shutdown()
+
+
+def test_ui_api_key_and_mcp(tmp_path, monkeypatch):
+    from lessonreview import ui
+    monkeypatch.setattr(config, "SECRETS", tmp_path / "secrets.json")
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    assert ui.api_status()["anthropic"] == {"source": None} and config.api_key() is None
+    assert not ui.save_api_key("not-a-key")["ok"] and not config.SECRETS.exists()
+    config.write_json(config.SECRETS, {"anthropic_api_key": "sk-ant-secret-1234"})
+    assert ui.api_status()["anthropic"] == {"source": "saved", "hint": "…1234"}  # the page never gets the key itself
+    assert "secret" not in json.dumps(ui.api_status())
+    assert ui.save_api_key("")["ok"] and not config.SECRETS.exists()
+
+    desktop = tmp_path / "Claude" / "claude_desktop_config.json"
+    monkeypatch.setattr(ui, "desktop_config_path", lambda: desktop)
+    assert not ui.connect_desktop()["ok"]  # Claude Desktop not installed
+    desktop.parent.mkdir()
+    desktop.write_text('{"mcpServers": {"other": {"command": "x"}}, "theme": "dark"}', encoding="utf-8")
+    assert ui.connect_desktop()["ok"]
+    data = json.loads(desktop.read_text(encoding="utf-8"))
+    assert data["theme"] == "dark" and set(data["mcpServers"]) == {"other", "english-lesson-review"}
+    assert data["mcpServers"]["english-lesson-review"]["args"] == ["-m", "lessonreview.mcp_server"]
+    assert desktop.with_suffix(".json.bak").exists() and ui.mcp_status()["desktop_connected"]
+
+
+def test_other_provider_review(tmp_path, monkeypatch):
+    from lessonreview import providers, ui
+    monkeypatch.setattr(config, "SECRETS", tmp_path / "secrets.json")
+    monkeypatch.setattr(providers, "check", lambda s: None)
+    assert not ui.save_provider({"preset": "openai", "model": "m"})["ok"]  # OpenAI needs a key
+    assert not ui.save_provider({"preset": "custom", "base_url": "ftp://x", "model": "m"})["ok"]
+    assert ui.save_provider({"preset": "ollama", "model": "qwen3:14b"})["ok"]  # local: no key
+    assert providers.settings()["base_url"] == "http://localhost:11434/v1"
+    assert ui.save_provider({"preset": "openai", "model": "m", "key": "sk-proj-abcd9876"})["ok"]
+    assert ui.save_provider({"preset": "openai", "model": "m2"})["ok"]  # blank key keeps the saved one
+    assert providers.settings() == {"preset": "openai", "base_url": "https://api.openai.com/v1", "model": "m2",
+                                    "api_key": "sk-proj-abcd9876"}
+    status = ui.api_status()
+    assert status["provider"] == "openai" and status["openai"]["hint"] == "…9876" and "abcd" not in json.dumps(status)
+    config.write_json(config.SECRETS, {**config.read_json(config.SECRETS), "anthropic_api_key": "sk-ant-x"})
+    assert ui.save_provider({"use": "anthropic"})["ok"] and providers.settings() is None
+    assert config.read_json(config.SECRETS)["openai"]["model"] == "m2"  # kept for switching back
+    assert ui.save_provider({"use": "openai"})["ok"] and providers.settings()["model"] == "m2"
+    assert ui.save_provider({"remove": True})["ok"] and "openai" not in config.read_json(config.SECRETS)
+    assert not ui.save_provider({"use": "openai"})["ok"]  # nothing saved to switch to
+
+    payload = {"errors": [{"category": "prepositions", "original": "wake up 6 and 30", "correction": "wake up at 6:30",
+                           "explanation": "Use at with clock times.", "confidence": "high"}],
+               "strengths": [], "vocabulary": []}
+    calls = []
+
+    def fake(s, path, body):  # rejects json_schema the first time, like servers that only have JSON mode
+        calls.append(json.loads(json.dumps(body)))
+        if len(calls) == 1:
+            raise providers.ProviderError("HTTP 400: response_format", 400)
+        return {"model": "m2", "choices": [{"finish_reason": "stop",
+                                            "message": {"content": "```json\n" + json.dumps(payload) + "\n```"}}]}
+
+    cfg = config._merge(config.DEFAULTS, {})
+    s = {"base_url": "https://x/v1", "model": "m2", "api_key": "k"}
+    data, model = providers.review(config.REPO / "examples" / "raw" / "cambly_lesson_2026-01-05.md", cfg, s, fake)
+    assert data == payload and model == "m2"
+    assert calls[0]["response_format"]["json_schema"]["schema"] is not None and calls[0]["model"] == "m2"
+    assert calls[1]["response_format"] == {"type": "json_object"} and "JSON schema" in calls[1]["messages"][0]["content"]
+    assert "6 and 30" in calls[0]["messages"][1]["content"]

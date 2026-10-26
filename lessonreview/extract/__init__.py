@@ -19,6 +19,11 @@ CAMBLY_LIST = "https://www.cambly.com/en/student/progress/past-lessons"
 CAMBLY_LESSON = "https://www.cambly.com/en/student/progress/past-lesson?lessonV2Id={id}"
 PREPLY_LIST = "https://preply.com/en/lessons"
 PREPLY_LESSON = "https://preply.com/edu/lesson-insights/{id}"
+HISTORY = {"cambly": CAMBLY_LIST, "preply": PREPLY_LIST}
+
+# None: wait for Enter in the terminal after logging in. Seconds: check the login by itself for that long
+# (the `ui` page has no terminal to press Enter in).
+LOGIN_WAIT = None
 
 
 def js(name):
@@ -40,8 +45,15 @@ def wait_for_login(page, url, check, platform):
     page.wait_for_load_state("domcontentloaded")
     if check():
         return
-    print(f"\nLog in to {platform} in the browser window that just opened, then press Enter here.")
-    input()
+    if LOGIN_WAIT:
+        print(f"Log in to {platform} in the browser window that just opened. Waiting up to {LOGIN_WAIT // 60} minutes.")
+        for _ in range(LOGIN_WAIT // 5):
+            page.wait_for_timeout(5000)
+            if check():
+                break
+    else:
+        print(f"\nLog in to {platform} in the browser window that just opened, then press Enter here.")
+        input()
     page.goto(url)
     page.wait_for_load_state("domcontentloaded")
     if not check():
