@@ -1,4 +1,7 @@
-"""Step 1: copy lessons from Cambly and Preply into raw/*.md, resuming from manifest.json.
+"""Optional automated extraction from Cambly and Preply into raw/*.md, resuming from manifest.json.
+
+Both platforms' terms forbid automated access, so this only runs with --accept-terms-risk.
+The supported route is importer.py (page text the user copied).
 
 A real Chrome window opens with its own profile (.browser-profile/). The first time, log in to each
 platform in that window; the session is kept for later runs. Alternatively, attach to a Chrome you

@@ -3,8 +3,8 @@
 Turn your Cambly and Preply lessons into a personal practice notebook built from your own mistakes.
 
 ```
-Cambly / Preply ──extract──▶ raw/*.md ──review──▶ analysis/errors.json ──build──▶ output/notebook.html
-  (your browser)              one file             your errors, sorted            flashcards, fill the gap,
+Cambly / Preply ──import───▶ raw/*.md ──review──▶ analysis/errors.json ──build──▶ output/notebook.html
+  (pages you copy)            one file             your errors, sorted            flashcards, fill the gap,
                               per lesson           into 9 types                   daily review, weekly plan
 ```
 
@@ -21,7 +21,6 @@ Want to see it first? `python -m lessonreview build --example` builds the notebo
 ## Requirements
 
 - Python 3.10+
-- Google Chrome (the extractor drives a real Chrome window)
 - For the review step, one of:
   - an Anthropic API key, or
   - Claude Desktop or Claude Code (uses your Claude subscription through MCP), or
@@ -40,36 +39,54 @@ cp config.example.json config.json   # then edit it
 
 | Key | What it does |
 |---|---|
-| `period.from`, `period.to` | Which lessons to collect (`YYYY-MM-DD`). |
+| `period.from`, `period.to` | Your study period (`YYYY-MM-DD`). Also used to fill in the year on Preply pages, which don't show it. |
 | `platforms` | `["cambly", "preply"]`, or just one. |
 | `learner.native_language` | Used in the review prompt (helps spot false friends). |
 | `learner.explanation_language` | Language of the explanations, e.g. `en`, `pt-BR`, `es`. |
 | `learner.level`, `learner.background` | Context for the reviewer. |
 | `review.model` | Model for API reviews. Default `claude-sonnet-5-5`. |
-| `browser.channel` | `chrome` uses your installed Chrome. Set to `null` to use Playwright's Chromium (run `playwright install chromium` first). |
-| `browser.cdp_url` | Optional: attach to a Chrome you started with `--remote-debugging-port=9222`, e.g. `http://localhost:9222`. |
 
-## Step 1: extract your lessons
+## Step 1: copy your lessons
+
+For each lesson, paste the page text into a `.txt` file in the `inbox/` folder (one file per lesson, any name):
+
+- **Cambly**: open the lesson in *Progress → Lesson history*. On the **FEEDBACK** tab press Ctrl+A, Ctrl+C and paste into the file. Then open the **TRANSCRIPT** tab, Ctrl+A, Ctrl+C, and paste below in the same file.
+- **Preply**: open the lesson's insights page, click **See all grammar feedback** and **See all vocabulary**, then Ctrl+A, Ctrl+C and paste.
+
+Then:
 
 ```bash
-python -m lessonreview extract              # both platforms
-python -m lessonreview extract --platform cambly --limit 5
+python -m lessonreview import
 ```
 
-A Chrome window opens with its own profile (`.browser-profile/`, never committed). The first time, log in to Cambly and Preply in that window and press Enter in the terminal. Your session is kept for later runs.
+The platform, date, tutor, talk time and corrections are read from the text. Files already imported are skipped, so you can keep adding lessons to `inbox/` and re-run. If a date or platform can't be detected, pass `--date 2026-09-08` or `--platform cambly` with the file name.
 
-Each lesson becomes one file in `raw/`, and `manifest.json` records progress. If something fails halfway (a lesson whose feedback is still being prepared, a network error), run the command again: finished lessons are skipped.
-
-What gets saved:
+Each lesson becomes one file in `raw/`. What you get:
 
 | | Cambly | Preply |
 |---|---|---|
-| Full transcript, split by speaker | Yes | No (Preply doesn't provide one) |
 | Platform corrections ("You said / Suggestion") | Yes | Yes |
+| Transcript | Yes, but without speaker names (copied text doesn't include them) | No (Preply doesn't provide one) |
 | Talk time, words per minute, unique words | Yes | Talk time only |
 | Key vocabulary | No | Yes |
 
-You can also write raw files by hand, for lessons from any other platform. The format is in [`lessonreview/rawfile.py`](lessonreview/rawfile.py), with an example in [`examples/raw/`](examples/raw/).
+[`examples/inbox/`](examples/inbox/) shows what pasted pages look like. You can also write raw files by hand, for lessons from any other platform: the format is in [`lessonreview/rawfile.py`](lessonreview/rawfile.py), with an example in [`examples/raw/`](examples/raw/).
+
+### Automated extraction (not recommended)
+
+There is also an extractor that drives Chrome and collects every lesson in the period by itself. **Both platforms' terms forbid this**, and using it can get your account suspended:
+
+- Cambly User Agreement, section 7: no "robô, spider, scraper ou outro meio automatizado para acessar a Plataforma".
+- Preply Terms of Service: "You agree not to view, copy, or procure content or information from the Preply Platform by automated means".
+
+It is off by default. If you accept that risk for your own account:
+
+```bash
+pip install playwright
+python -m lessonreview extract --accept-terms-risk --limit 3
+```
+
+A Chrome window opens with its own profile (`.browser-profile/`). Log in to each platform there the first time. It saves after every lesson and resumes from `manifest.json`. Extra settings: `browser.channel` (`chrome` or `null` for Playwright's Chromium) and `browser.cdp_url` (attach to a Chrome started with `--remote-debugging-port`).
 
 ## Step 2: review
 
@@ -122,7 +139,7 @@ python -m lessonreview build
 
 Open `output/notebook.html` in your browser. Progress (card boxes, streak, plan checkboxes) is saved in that browser's local storage.
 
-`python -m lessonreview all` runs the three steps in a row, and `python -m lessonreview status` shows where you are.
+`python -m lessonreview all` imports what's in `inbox/`, reviews and builds, and `python -m lessonreview status` shows where you are.
 
 ## Error types
 
@@ -130,15 +147,13 @@ Every reviewer uses the same nine types, defined in [`lessonreview/categories.py
 
 ## Privacy
 
-- Your lessons, reviews and notebook stay on your machine. `raw/`, `analysis/`, `output/`, `manifest.json`, `config.json` and `.browser-profile/` are all in `.gitignore`.
+- Your lessons, reviews and notebook stay on your machine. `inbox/`, `raw/`, `analysis/`, `output/`, `manifest.json`, `config.json` and `.browser-profile/` are all in `.gitignore`.
 - With the API or MCP review, lesson transcripts are sent to Anthropic to be reviewed. The offline review sends nothing anywhere.
 - The `examples/` data comes from one learner, with tutor names, companies and places removed.
 
 ## Disclaimer
 
-This project is not affiliated with Cambly or Preply. The extractor reads pages from your own logged-in account, for your personal study. It depends on how those sites are built today and will break when they change. Check each platform's terms before using it.
-
-If the extractor breaks, the page-side code is in [`lessonreview/extract/js/`](lessonreview/extract/js/) and the text parsing in [`lessonreview/extract/parse.py`](lessonreview/extract/parse.py), with tests in [`tests/`](tests/).
+This project is not affiliated with Cambly or Preply. The supported workflow only reads text you copied yourself from your own lessons, for personal study; Cambly's terms allow downloading content for personal use. The optional automated extractor is against both platforms' terms (see above); use it only if you accept the risk to your account. Page layouts change, so the parsers may need updates: they live in [`lessonreview/extract/parse.py`](lessonreview/extract/parse.py) and [`lessonreview/importer.py`](lessonreview/importer.py), with tests in [`tests/`](tests/).
 
 ## Development
 

@@ -23,6 +23,9 @@ and mis-transcribed words that reveal a pronunciation problem.
 
 Rules:
 - Only the learner's lines count ("L:" in the transcript). Tutor lines ("T:") are context.
+- Lines marked "?:" come from copied page text with no speaker names, and one turn may be split over several
+  lines. Count a line as the learner's only when that is clear (the tutor asks questions, corrects and models
+  language; the learner answers and makes non-native errors). When unsure, use confidence "low".
 - Ignore normal spoken disfluency: fillers, restarts, "like", unfinished phrases.
 - Do not invent errors. When you can't tell a real error from a transcription artifact, set confidence "low".
 - "original" is the learner's words verbatim (the shortest span that shows the error). "correction" is the natural fix.

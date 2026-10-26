@@ -17,6 +17,7 @@
     ## Transcript
     L: Learner line
     T: Tutor line
+    ?: Line from copied text, speaker unknown
 
 Anyone can also write these files by hand (see examples/raw/).
 """
@@ -40,7 +41,7 @@ def filename(source, date, existing=()):
 
 def render(meta, feedback=(), vocabulary=(), transcript=(), notes=""):
     """meta: dict with HEADER_KEYS. feedback: dicts {tag, original, correction, explanation} or {tag, text}.
-    transcript: (speaker, text) pairs where speaker is 'L' (learner) or 'T' (tutor)."""
+    transcript: (speaker, text) pairs where speaker is 'L' (learner), 'T' (tutor) or '?' (unknown)."""
     title = f"# {meta['source'].capitalize()} lesson - {meta['date']} {meta.get('time') or ''}".rstrip()
     lines = [title]
     for k in HEADER_KEYS:
@@ -88,7 +89,7 @@ def parse(path):
         elif section == "key vocabulary" and line.startswith("- "):
             vocabulary.append(line[2:].strip())
         elif section == "transcript":
-            m = re.match(r"^([LT]): (.*)$", line)
+            m = re.match(r"^([LT?]): (.*)$", line)
             if m:
                 transcript.append((m.group(1), m.group(2)))
     if "date" not in meta:

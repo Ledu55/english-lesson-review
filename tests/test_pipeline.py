@@ -137,3 +137,42 @@ def test_api_review_request(tmp_path, monkeypatch):
     assert k["system"][0]["cache_control"] == {"type": "ephemeral"} and "pt-BR" in k["system"][0]["text"]
     assert "6 and 30" in k["messages"][0]["content"]
     assert out["method"] == "api" and out["errors"][0]["category"] == "prepositions"
+
+
+def test_import_copied_pages(tmp_path, monkeypatch):
+    from lessonreview import importer
+    monkeypatch.setattr(config, "RAW", tmp_path / "raw")
+    config.RAW.mkdir()
+    cfg = config._merge(config.DEFAULTS, {"period": {"from": "2026-01-01", "to": "2026-03-31"}})
+    manifest = {"lessons": []}
+    inbox = config.REPO / "examples" / "inbox"
+
+    name, msg = importer.import_file(inbox / "cambly_copied_page.txt", cfg, manifest)
+    lesson = rawfile.parse(config.RAW / name)
+    assert name == "cambly_lesson_2026-01-12.md"
+    assert lesson["meta"]["tutor"] == "Alex" and lesson["meta"]["talk_pct"] == 61 and lesson["meta"]["wpm"] == 128
+    assert [f["orig"] for f in lesson["feedback"] if f["orig"]] == [
+        "I went there in my car with three friend.", "We had a lot of fun in the parade, it was very funny."]
+    assert lesson["transcript"][0] == ("?", "Hi! How was your weekend?") and len(lesson["transcript"]) == 6
+
+    name, msg = importer.import_file(inbox / "preply_copied_page.txt", cfg, manifest)
+    lesson = rawfile.parse(config.RAW / name)
+    assert name == "preply_lesson_2026-01-14.md"  # year comes from the configured period
+    assert lesson["meta"]["tutor"] == "Sam" and lesson["meta"]["learner_min"] == 26
+    assert lesson["feedback"][0]["orig"] == "I didn't knew the answer in that moment."
+    assert lesson["vocabulary"] == ["push back (B2, expression)", "off the top of my head (B2, expression)"]
+
+    assert importer.import_file(inbox / "preply_copied_page.txt", cfg, manifest)[1] == "already imported"
+    assert len(manifest["lessons"]) == 2
+
+
+@pytest.mark.parametrize("line,expected", [
+    ("8 de setembro de 2026", "2026-09-08"),
+    ("September 8, 2026", "2026-09-08"),
+    ("24 de ago., 18:30 – 19:20", "2026-08-24"),
+    ("Tuesday, Aug 24 · 18:30", "2026-08-24"),
+])
+def test_find_date(line, expected):
+    from lessonreview import importer
+    cfg = config._merge(config.DEFAULTS, {"period": {"from": "2026-08-01", "to": "2026-10-31"}})
+    assert importer.find_date(["Header", line], cfg) == expected
