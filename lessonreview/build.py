@@ -10,7 +10,7 @@ TEMPLATE = config.REPO / "notebook" / "template.html"
 MARKER = "/*__DATA__*/null"
 
 
-def notebook_data(data, cfg):
+def notebook_data(data, cfg, live=False):
     return {
         "errors": data["errors"],
         "vocabulary": data.get("vocabulary", []),
@@ -18,15 +18,16 @@ def notebook_data(data, cfg):
         "diagnosis": insights.diagnosis(data),
         "plan": insights.plan(data),
         "categories": {k: [v["name"], v["hint"], v["color"]] for k, v in CATEGORIES.items()},
-        "meta": {"explanation_lang": cfg["learner"]["explanation_language"]},
+        "meta": {"explanation_lang": cfg["learner"]["explanation_language"], "live": live},
     }
 
 
-def render(data, cfg):
+def render(data, cfg, live=False):
+    """live: served by `ui`, which adds the Lessons screen for importing, reviewing and building."""
     html = TEMPLATE.read_text(encoding="utf-8")
     if MARKER not in html:
         sys.exit(f"{TEMPLATE} has no {MARKER} marker")
-    payload = json.dumps(notebook_data(data, cfg), ensure_ascii=False).replace("</", "<\\/")
+    payload = json.dumps(notebook_data(data, cfg, live), ensure_ascii=False).replace("</", "<\\/")
     return html.replace(MARKER, payload)
 
 

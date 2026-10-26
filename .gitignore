@@ -4,6 +4,7 @@
 /output/
 /manifest.json
 /config.json
+/secrets.json
 /.browser-profile/
 
 # Python

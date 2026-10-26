@@ -18,6 +18,7 @@ ERRORS = ANALYSIS / "errors.json"
 OUTPUT = ROOT / "output"
 MANIFEST = ROOT / "manifest.json"
 CONFIG = ROOT / "config.json"
+SECRETS = ROOT / "secrets.json"  # API key saved from the `ui` page; git-ignored
 
 DEFAULTS = {
     "period": {"from": "2000-01-01", "to": "2100-01-01"},
@@ -49,6 +50,11 @@ def load():
             print(f"Created {CONFIG.name} from config.example.json. Edit it to set your period and language.")
     data = json.loads(CONFIG.read_text(encoding="utf-8")) if CONFIG.exists() else {}
     return _merge(DEFAULTS, data)
+
+
+def api_key():
+    """The Anthropic API key saved from the `ui` page, or None to let the SDK use ANTHROPIC_API_KEY / `ant auth login`."""
+    return (read_json(SECRETS, {}) or {}).get("anthropic_api_key") or None
 
 
 def read_json(path, default=None):

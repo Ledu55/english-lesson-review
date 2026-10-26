@@ -1,7 +1,8 @@
 """Step 2: turn each raw lesson into a review (analysis/reviews/<lesson>.json).
 
 Three ways to produce a review, all writing the same format:
-- api:     one Claude API call per lesson with a JSON schema (needs ANTHROPIC_API_KEY or `ant auth login`)
+- api:     one Claude API call per lesson with a JSON schema (needs a key saved in the `ui` page, ANTHROPIC_API_KEY
+           or `ant auth login`), or another provider's OpenAI-compatible API if one is chosen there (providers.py)
 - mcp:     an MCP host (Claude Desktop / Claude Code) reads the lesson and calls save_review (see mcp_server.py)
 - offline: no LLM; uses the corrections the platform already gave, sorted into categories by rules
 """
@@ -80,7 +81,7 @@ def save(path, review, method, model=None):
 def review_api(path, cfg, client=None):
     import anthropic
 
-    client = client or anthropic.Anthropic()
+    client = client or anthropic.Anthropic(api_key=config.api_key())
     model = cfg["review"]["model"]
     response = client.beta.messages.create(
         model=model,
@@ -100,10 +101,33 @@ def review_api(path, cfg, client=None):
     return save(path, json.loads(text), "api", response.model)
 
 
+def run_provider(cfg, s, limit=None):
+    from . import providers
+    todo = pending()[:limit] if limit else pending()
+    if not todo:
+        print("Nothing to review: every raw lesson already has a review.")
+    for path in todo:
+        try:
+            data, model = providers.review(path, cfg, s)
+            r = save(path, data, "api", model)
+            print(f"reviewed {path.name}: {len(r['errors'])} errors")
+        except providers.ProviderError as e:
+            if e.status in (401, 403):
+                sys.exit(f"{s['base_url']} rejected the API key. Check it on the `ui` Lessons screen.")
+            if e.status == 429:
+                sys.exit("Rate limited. Run the command again later; finished lessons are kept.")
+            print(f"skipped {path.name}: {e}")
+        except ValueError as e:  # the model's JSON didn't match the review schema
+            print(f"skipped {path.name}: {e}")
+
+
 def run_api(cfg, limit=None):
+    from . import providers
+    if s := providers.settings():
+        return run_provider(cfg, s, limit)
     import anthropic
 
-    client = anthropic.Anthropic()
+    client = anthropic.Anthropic(api_key=config.api_key())
     todo = pending()[:limit] if limit else pending()
     if not todo:
         print("Nothing to review: every raw lesson already has a review.")
@@ -112,7 +136,8 @@ def run_api(cfg, limit=None):
             r = review_api(path, cfg, client)
             print(f"reviewed {path.name}: {len(r['errors'])} errors")
         except anthropic.AuthenticationError:
-            sys.exit("No valid API credentials. Set ANTHROPIC_API_KEY (or run `ant auth login`), "
+            sys.exit("No valid API credentials. Save a key on the `ui` Lessons screen, set ANTHROPIC_API_KEY "
+                     "(or run `ant auth login`), "
                      "use the MCP server, or run `review --offline`.")
         except anthropic.RateLimitError:
             sys.exit("Rate limited. Run the command again later; finished lessons are kept.")
